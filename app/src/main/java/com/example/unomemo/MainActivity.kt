@@ -1,13 +1,10 @@
 package com.example.unomemo
 
 import android.os.Bundle
-import android.text.BoringLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentContainerView
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.unomemo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         fragLayout = binding.fragmentContainer
 
         val navController = findNavController(R.id.nav_host_fragment)
-
         //TODO add drawerLayout to main activity, wrap fragmentConteinerView
         //NavigationUI.setupActionBarWithNavController(this,navController,fragLayout)
 
