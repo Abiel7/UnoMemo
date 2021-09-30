@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         fragLayout = binding.fragmentContainer
 
         val navController = findNavController(R.id.nav_host_fragment)
+
         //TODO add drawerLayout to main activity, wrap fragmentConteinerView
         //NavigationUI.setupActionBarWithNavController(this,navController,fragLayout)
 
