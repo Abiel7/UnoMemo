@@ -2,21 +2,32 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navagtion"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/entryPointFragment">
 
     <fragment
+        android:id="@+id/katgoryFragment"
+        android:name="com.example.unomemo.KatgoryFragment"
+        android:label="fragment_katgory"
+        tools:layout="@layout/fragment_katgory" />
+    <fragment
+        android:id="@+id/entryPointFragment"
+        android:name="com.example.unomemo.EntryPointFragment"
+        android:label="fragment_entry"
+        tools:layout="@layout/fragment_entry" >
+        <action
+            android:id="@+id/action_entryPointFragment_to_katgoryFragment"
+            app:destination="@id/katgoryFragment" />
+        <action
+            android:id="@+id/action_entryPointFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.unomemo.LoginFragment"
+        android:name="com.example.unomemo.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_katgoryFragment"
             app:destination="@id/katgoryFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/katgoryFragment"
-        android:name="com.example.unomemo.KatgoryFragment"
-        android:label="fragment_katgory"
-        tools:layout="@layout/fragment_katgory" />
 </navigation>
