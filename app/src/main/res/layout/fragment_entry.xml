@@ -5,7 +5,7 @@
     tools:context=".EntryPointFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/gameWonConstraintLayout"
+        android:id="@+id/entrypointConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

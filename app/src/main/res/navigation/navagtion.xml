@@ -13,7 +13,7 @@
         android:id="@+id/entryPointFragment"
         android:name="com.example.unomemo.EntryPointFragment"
         android:label="fragment_entry"
-        tools:layout="@layout/fragment_entry" >
+        tools:layout="@layout/fragment_entry">
         <action
             android:id="@+id/action_entryPointFragment_to_katgoryFragment"
             app:destination="@id/katgoryFragment" />
