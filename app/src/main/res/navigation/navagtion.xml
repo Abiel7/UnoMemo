@@ -15,9 +15,6 @@
         android:label="fragment_entry"
         tools:layout="@layout/fragment_entry">
         <action
-            android:id="@+id/action_entryPointFragment_to_katgoryFragment"
-            app:destination="@id/katgoryFragment" />
-        <action
             android:id="@+id/action_entryPointFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
@@ -26,6 +23,9 @@
         android:name="com.example.unomemo.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_entryPointFragment_to_katgoryFragment"
+            app:destination="@id/katgoryFragment" />
         <action
             android:id="@+id/action_loginFragment_to_katgoryFragment"
             app:destination="@id/katgoryFragment" />

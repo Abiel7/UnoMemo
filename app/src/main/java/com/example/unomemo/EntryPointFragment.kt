@@ -1,12 +1,14 @@
 package com.example.unomemo
 
-import android.app.Activity
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
-import androidx.fragment.app.Fragment
-import androidx.appcompat.widget.ThemeUtils
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.unomemo.databinding.FragmentEntryBinding
 
@@ -18,6 +20,7 @@ import com.example.unomemo.databinding.FragmentEntryBinding
  */
 class EntryPointFragment : Fragment() {
     lateinit var binding : FragmentEntryBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,14 +32,38 @@ class EntryPointFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonToLoginActivity.setOnClickListener{
-            findNavController().navigate(R.id.action_entryPointFragment_to_loginFragment)
+        //TODO fix full screen
+        // flagger bars og hånterer depricated flagging
+        //fullscreen(window = requireActivity().window, 0)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            var navcontroller =  findNavController()
+            navcontroller.navigate(R.id.action_entryPointFragment_to_loginFragment)
+            //TODO remove fragment from the stack
+        },3000)
+
+
+
+        super.onCreate(savedInstanceState)
+    }
+
+/*
+    @Suppress("DEPRECATION")
+    private fun fullscreen(window: Window, systemBarsBehavior: Int ){
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.R){
+            var controller = window.insetsController
+            controller?.hide((statusBars() and  navigationBars()) or navigationBars() or statusBars() )
+            controller?.systemBarsBehavior = systemBarsBehavior
         }
-        binding.skipGroup.setOnClickListener {
-            findNavController().navigate(R.id.action_entryPointFragment_to_katgoryFragment)
+        else{
+            window.setFlags(
+                FLAG_FULLSCREEN,
+                FLAG_FULLSCREEN
+            )
         }
     }
+*/
 
 }
