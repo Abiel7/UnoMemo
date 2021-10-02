@@ -4,16 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
+    <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_container">
-        <fragment
+        android:id="@+id/drawerLayout">
+        <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:id="@+id/nav_host_fragment"
-            app:navGraph="@navigation/navagtion"
-            android:name="androidx.navigation.fragment.NavHostFragment"/>
-    </androidx.fragment.app.FragmentContainerView>
+            app:navGraph="@navigation/navagtion"/>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/navdrawer_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>

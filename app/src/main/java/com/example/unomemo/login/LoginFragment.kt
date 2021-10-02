@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLoginBinding
 
@@ -20,7 +21,6 @@ import com.example.unomemo.databinding.FragmentLoginBinding
  *
  * */
 class LoginFragment : Fragment() {
-
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var _binding: FragmentLoginBinding
 
@@ -108,6 +108,10 @@ class LoginFragment : Fragment() {
                 passwordEditText.text.toString()
             )
         }
+
+        binding.skipGroup!!.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_katgoryFragment)
+        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -121,9 +125,11 @@ class LoginFragment : Fragment() {
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
-
+    /*
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = _binding.javaClass.newInstance()
+
     }
+
+     */
 }

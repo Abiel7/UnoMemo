@@ -3,10 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".KatgoryFragment">
-    <androidx.recyclerview.widget.RecyclerView
+
+    <LinearLayout
+        android:id="@+id/fk_ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list_recyclerview"
-        />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/kategori_recycler_view"
+            android:layout_width="415dp"
+            android:layout_height="625dp"
+
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
+    </LinearLayout>
 
 </layout>
