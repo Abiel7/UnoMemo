@@ -109,7 +109,7 @@ class LoginFragment : Fragment() {
             )
         }
 
-        binding.skipGroup!!.setOnClickListener {
+        binding.extendedFabSkip!!.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_katgoryFragment)
         }
     }
