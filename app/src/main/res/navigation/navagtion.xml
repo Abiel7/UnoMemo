@@ -8,7 +8,12 @@
         android:id="@+id/katgoryFragment"
         android:name="com.example.unomemo.KatgoryFragment"
         android:label="fragment_katgory"
-        tools:layout="@layout/fragment_katgory" />
+        tools:layout="@layout/fragment_katgory" >
+        <action
+            android:id="@+id/action_katgoryFragment_to_spillKort"
+            app:destination="@id/spillKort" />
+    </fragment>
+
     <fragment
         android:id="@+id/entryPointFragment"
         android:name="com.example.unomemo.EntryPointFragment"
@@ -21,6 +26,7 @@
             android:id="@+id/action_entryPointFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.unomemo.login.LoginFragment"
@@ -28,6 +34,17 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_katgoryFragment"
-            app:destination="@id/katgoryFragment" />
+            app:destination="@id/katgoryFragment"
+            />
     </fragment>
+
+    <fragment
+        android:id="@+id/spillKort"
+        android:name="com.example.unomemo.spillKort.SpillKort"
+        android:label="SpillKort" />
+    <fragment
+        android:id="@+id/lastoppBildeFragement"
+        android:name="com.example.unomemo.LastOppBilde.LastoppBilde"
+        android:label="fragment_lastopp_bilde_fragement"
+        tools:layout="@layout/fragment_lastopp_bilde_fragement" />
 </navigation>
