@@ -29,8 +29,12 @@
         <entry key="app/src/main/res/drawable/ic_icon_simple_unsplash.xml" value="0.5611111111111111" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/drawable/nav_header.xml" value="0.353125" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_lastopp_bilde_fragement.xml" value="0.3328125" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/fragment_spill_kort.xml" value="0.3328125" />
+        <entry key="app/src/main/res/layout/kategori_list_item.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.33697916666666666" />
+        <entry key="app/src/main/res/layout/spillkortlayout.xml" value="0.3328125" />
         <entry key="app/src/main/res/menu/navdrawer_menu.xml" value="0.33697916666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.353125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.35260416666666666" />
@@ -46,7 +50,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.14" />
+        <option name="scale" value="0.16" />
       </ProjectState>
     </option>
   </component>

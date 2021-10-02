@@ -8,8 +8,8 @@ class KategoriData {
         @JvmStatic
         var kategoribilde: Array<Int> = arrayOf(
             R.drawable.norge,
-            R.drawable.bil,
             R.drawable.dyr,
+            R.drawable.bil,
             R.drawable.mat
         )
         var kategorinavn: Array<String> = arrayOf(
