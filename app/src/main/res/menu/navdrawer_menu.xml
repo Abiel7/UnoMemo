@@ -4,9 +4,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/accountFragment"
+        android:title="account" />
+
+    <item
         android:id="@+id/rulesFragment"
         android:title="rules" />
     <item
         android:id="@+id/aboutFragment"
         android:title="about" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="settings" />
 </menu>
