@@ -1,15 +1,22 @@
 package com.example.unomemo
 
-import android.graphics.drawable.AnimationDrawable
+import android.app.TaskStackBuilder
 import android.os.Bundle
+import android.os.DropBoxManager
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.*
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.unomemo.databinding.FragmentEntryBinding
 
 
@@ -20,6 +27,7 @@ import com.example.unomemo.databinding.FragmentEntryBinding
  */
 class EntryPointFragment : Fragment() {
     lateinit var binding : FragmentEntryBinding
+    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +36,7 @@ class EntryPointFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_entry, container, false)
+        navController = findNavController(this)
         return binding.root
     }
 
@@ -36,17 +45,16 @@ class EntryPointFragment : Fragment() {
         //TODO fix full screen
         // flagger bars og hånterer depricated flagging
         //fullscreen(window = requireActivity().window, 0)
-
+        //TODO animation of logo when ending, navigate to @id/loginFragment
         Handler(Looper.getMainLooper()).postDelayed({
-            var navcontroller =  findNavController()
-            navcontroller.navigate(R.id.action_entryPointFragment_to_loginFragment)
-            //TODO remove fragment from the stack
+            navController = findNavController(this)
+            navController.navigate(EntryPointFragmentDirections.actionEntryPointFragmentToLoginFragment(splashShowed = true))
         },3000)
-
-
 
         super.onCreate(savedInstanceState)
     }
+
+
 
 /*
     @Suppress("DEPRECATION")

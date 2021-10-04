@@ -2,18 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/entryPointFragment">
+    app:startDestination="@id/katgoryFragment">
 
     <fragment
-        android:id="@+id/katgoryFragment"
-        android:name="com.example.unomemo.KatgoryFragment"
-        android:label="fragment_katgory"
-        tools:layout="@layout/fragment_katgory" >
+        android:id="@+id/loginFragment"
+        android:name="com.example.unomemo.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_katgoryFragment_to_spillKort"
-            app:destination="@id/spillKort" />
+            android:id="@+id/action_loginFragment_to_katgoryFragment"
+            app:destination="@id/katgoryFragment"
+            />
     </fragment>
-
     <fragment
         android:id="@+id/entryPointFragment"
         android:name="com.example.unomemo.EntryPointFragment"
@@ -23,19 +23,29 @@
             android:id="@+id/action_entryPointFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.unomemo.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:id="@+id/katgoryFragment"
+        android:name="com.example.unomemo.KatgoryFragment"
+        android:label="fragment_katgory"
+        tools:layout="@layout/fragment_katgory" >
+
+        <argument
+            android:name="selfNavigated"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="splashShowed"
+            app:argType="boolean"
+            android:defaultValue="false" />
         <action
-            android:id="@+id/action_entryPointFragment_to_katgoryFragment"
+            android:id="@+id/action_katgoryFragment_to_spillKort"
+            app:destination="@id/spillKort" />
+        <action
+            android:id="@+id/action_katgoryFragment_to_entryPointFragment"
+            app:destination="@id/entryPointFragment" />
+        <action
+            android:id="@+id/action_katgoryFragment_self"
             app:destination="@id/katgoryFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_katgoryFragment"
-            app:destination="@id/katgoryFragment"
-            />
     </fragment>
 
     <fragment
