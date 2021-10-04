@@ -1,9 +1,6 @@
 package com.example.unomemo.login
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -11,10 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.*
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLoginBinding
+import java.util.*
 
 /**
  * Auto generert kode fra android studio
@@ -22,7 +25,8 @@ import com.example.unomemo.databinding.FragmentLoginBinding
  * */
 class LoginFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var _binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private lateinit var navController: NavController
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,12 +37,16 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
+        navController = findNavController(this)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this,
+
+        loginViewModel = ViewModelProvider(
+            this,
             LoginViewModelFactory()
         ).get(LoginViewModel::class.java)
 
@@ -110,7 +118,10 @@ class LoginFragment : Fragment() {
         }
 
         binding.extendedFabSkip!!.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_katgoryFragment)
+            findNavController(this).navigate(
+                LoginFragmentDirections
+                    .actionLoginFragmentToKatgoryFragment(selfNavigated = false)
+            )
         }
     }
 
@@ -125,11 +136,11 @@ class LoginFragment : Fragment() {
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
-    /*
-    override fun onDestroyView() {
-        super.onDestroyView()
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
-     */
 }

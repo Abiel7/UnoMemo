@@ -1,10 +1,10 @@
 package com.example.unomemo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -22,15 +22,12 @@ class MainActivity : AppCompatActivity() {
         val navController = navHost.navController
 
         NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
-
-        //TODO add NavigationView (matirial) bottom of layout
-        //NavigationUI.setupWithNavController(binding.navView,navController)
-
+        NavigationUI.setupWithNavController(binding.navView,navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
-        return NavigationUI.navigateUp(navController, drawerLayout)
+        Log.v("navigatorName",navController.currentBackStackEntry!!.destination.navigatorName)
+        return NavigationUI.navigateUp(navController, drawerLayout)||super.onSupportNavigateUp()
     }
-
 }
