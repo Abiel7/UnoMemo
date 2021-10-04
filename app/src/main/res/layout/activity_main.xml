@@ -13,14 +13,15 @@
             android:layout_height="match_parent"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:id="@+id/nav_host_fragment"
-            app:navGraph="@navigation/navagtion"/>
+            app:navGraph="@navigation/navagtion"
+            app:defaultNavHost="true"/>
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/nav_header"
-            app:menu="@menu/navdrawer_menu" />
+            app:menu="@menu/navdrawer_menu"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>
