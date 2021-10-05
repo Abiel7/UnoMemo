@@ -20,8 +20,8 @@
         android:label="fragment_entry"
         tools:layout="@layout/fragment_entry">
         <action
-            android:id="@+id/action_entryPointFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_entryPointFragment_to_katgoryFragment"
+            app:destination="@id/katgoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/katgoryFragment"
@@ -33,19 +33,22 @@
             android:name="selfNavigated"
             app:argType="boolean"
             android:defaultValue="false" />
-        <argument
-            android:name="splashShowed"
-            app:argType="boolean"
-            android:defaultValue="false" />
         <action
             android:id="@+id/action_katgoryFragment_to_spillKort"
             app:destination="@id/spillKort" />
         <action
+            android:id="@+id/action_katgoryFragment_self"
+            app:destination="@id/katgoryFragment"/>
+        <action
+            android:id="@+id/action_katgoryFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
             android:id="@+id/action_katgoryFragment_to_entryPointFragment"
             app:destination="@id/entryPointFragment" />
-        <action
-            android:id="@+id/action_katgoryFragment_self"
-            app:destination="@id/katgoryFragment" />
+        <argument
+            android:name="splashScreenShowed"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment

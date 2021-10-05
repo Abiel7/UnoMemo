@@ -1,6 +1,9 @@
 package com.example.unomemo.login
 
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import androidx.annotation.StringRes
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -44,7 +47,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args:LoginFragmentArgs by navArgs()
 
         loginViewModel = ViewModelProvider(
             this,
@@ -121,7 +123,7 @@ class LoginFragment : Fragment() {
         binding.extendedFabSkip!!.setOnClickListener {
             findNavController(this).navigate(
                 LoginFragmentDirections
-                    .actionLoginFragmentToKatgoryFragment()
+                    .actionLoginFragmentToKatgoryFragment(selfNavigated = false)
             )
         }
     }

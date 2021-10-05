@@ -48,13 +48,13 @@ class EntryPointFragment : Fragment() {
         //TODO animation of logo when ending, navigate to @id/loginFragment
         Handler(Looper.getMainLooper()).postDelayed({
             navController = findNavController(this)
-            navController.navigate(EntryPointFragmentDirections.actionEntryPointFragmentToLoginFragment(splashShowed = true))
+            navController.navigate(EntryPointFragmentDirections.actionEntryPointFragmentToKatgoryFragment(true))
         },3000)
+
+
 
         super.onCreate(savedInstanceState)
     }
-
-
 
 /*
     @Suppress("DEPRECATION")
