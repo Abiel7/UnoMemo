@@ -38,4 +38,5 @@
         <item>Krevende 16</item>
     </string-array>
     <string name="extended_fab_content_desc">floting button skip account</string>
+    <string name="leaderboard">Leaderboard</string>
 </resources>
