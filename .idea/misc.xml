@@ -4,36 +4,30 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_ar.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_baseline_chevron_right_10.xml" value="0.3828125" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_er.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_fr.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_in.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_no.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_se.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/bilde_kort_layout.xml" value="0.35054347826086957" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/dropdown_item.xml" value="0.35054347826086957" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/fragment_entry.xml" value="0.20425724637681159" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/fragment_katgory.xml" value="0.20425724637681159" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/fragment_lastopp_bilde_fragement.xml" value="0.33" />
-        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/fragment_spill_kort.xml" value="0.25" />
-        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/spillkortlayout.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/fragment_login.xml" value="0.20425724637681159" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/fragment_spill_kort.xml" value="0.14473684210526316" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/kategori_list_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/layout/spillkortlayout.xml" value="0.5" />
+        <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/menu/navdrawer_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/menu/option_menu.xml" value="0.33" />
         <entry key="..\:/Users/sveni/AndroidStudioProjects/UnoMemo/app/src/main/res/layout/activity_main.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/sveni/AndroidStudioProjects/UnoMemo/app/src/main/res/layout/fragment_login.xml" value="0.16666666666666666" />
-        <entry key="app/src/main/res/drawable-logo/ic_launcher_background.xml" value="0.5611111111111111" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5611111111111111" />
-        <entry key="app/src/main/res/drawable/ic_baseline_chevron_right_10.xml" value="0.5611111111111111" />
-        <entry key="app/src/main/res/drawable/ic_icon_simple_1.xml" value="0.353125" />
-        <entry key="app/src/main/res/drawable/ic_icon_simple_2.xml" value="0.5611111111111111" />
-        <entry key="app/src/main/res/drawable/ic_icon_simple_3.xml" value="0.5611111111111111" />
-        <entry key="app/src/main/res/drawable/ic_icon_simple_4.xml" value="0.5611111111111111" />
-        <entry key="app/src/main/res/drawable/ic_icon_simple_unsplash.xml" value="0.5611111111111111" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.35260416666666666" />
-        <entry key="app/src/main/res/drawable/nav_header.xml" value="0.353125" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.16" />
-        <entry key="app/src/main/res/layout/nav_header.xml" value="0.33697916666666666" />
-        <entry key="app/src/main/res/menu/navdrawer_menu.xml" value="0.33697916666666666" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.353125" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.35260416666666666" />
       </map>
     </option>
   </component>
@@ -42,12 +36,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.16" />
-      </ProjectState>
-    </option>
   </component>
 </project>
