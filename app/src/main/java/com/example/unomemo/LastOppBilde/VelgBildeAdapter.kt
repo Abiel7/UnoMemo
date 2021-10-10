@@ -5,14 +5,15 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.R
+import com.example.unomemo.spillData.Vanskelighetsgrad
 
 class VelgBildeAdapter(private val lastoppBilde: Context,
                        private val antallBilderValgt: MutableList<Uri>,
-                       private val i: Int) : RecyclerView.Adapter<VelgBildeAdapter.ViewHolder>() {
+                       private val i: Vanskelighetsgrad
+) : RecyclerView.Adapter<VelgBildeAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VelgBildeAdapter.ViewHolder {
@@ -24,7 +25,7 @@ class VelgBildeAdapter(private val lastoppBilde: Context,
         holder.bind()
     }
 
-    override fun getItemCount()=i
+    override fun getItemCount()=i.getHoyde()
 
     inner class ViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
         private val iamgeView = itemView.findViewById<ImageView>(R.id.telBilder)

@@ -19,9 +19,19 @@ class KategoriData {
             "Mat"
         )
         var spillerliste: Array<String> = arrayOf(
-            "Kim",
-            "Abiel",
-            "Svein Torger"
+            "Jens",
+            "Anne",
+            "Halvor"
+        )
+        var spillerpoengliste: Array<String> = arrayOf(
+            "500",
+            "400",
+            "350"
+        )
+        var spillerplassingliste: Array<String> = arrayOf(
+            "1",
+            "2",
+            "3"
         )
     }
 }
