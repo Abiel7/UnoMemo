@@ -22,7 +22,6 @@
     <string name="enkel_8">Enkel - 8</string>
     <string name="middels_12">Middels - 12</string>
     <string name="krevende_16">Krevende - 16</string>
-    <string name="textview">TextView</string>
     <string name="par_0_3">Par: 0 / 3</string>
     <string name="beveglser_0">Beveglser : 0</string>
     <string name="g_videre">GÅ videre</string>
@@ -38,5 +37,10 @@
         <item>Krevende 16</item>
     </string-array>
     <string name="extended_fab_content_desc">floting button skip account</string>
-    <string name="leaderboard">Leaderboard</string>
+    <string name="leaderboard">leaderboard</string>
+    <string name="custom_game">custom game</string>
+    <string name="settings">settings</string>
+    <string name="about">about</string>
+    <string name="rules">rules</string>
+    <string name="account">account</string>
 </resources>

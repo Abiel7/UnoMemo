@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/accountFragment"
-        android:title="account" />
+        android:title="@string/account" />
 
     <item
         android:id="@+id/rulesFragment"
-        android:title="rules" />
+        android:title="@string/rules" />
     <item
         android:id="@+id/aboutFragment"
-        android:title="about" />
+        android:title="@string/about" />
     <item
         android:id="@+id/settingsFragment"
-        android:title="settings" />
+        android:title="@string/settings" />
 
 
     <item
-        android:id="@+id/customGame"
-        android:title="Custom Game" />
+        android:id="@+id/lastoppBildeFragement"
+        android:title="@string/custom_game" />
 
 
     <item

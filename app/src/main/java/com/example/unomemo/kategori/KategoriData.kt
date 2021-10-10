@@ -14,8 +14,8 @@ class KategoriData {
         )
         var kategorinavn: Array<String> = arrayOf(
             "Flagg",
-            "bil",
             "Dyr",
+            "bil",
             "Mat"
         )
         var spillerliste: Array<String> = arrayOf(

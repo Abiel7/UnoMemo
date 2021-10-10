@@ -1,8 +1,7 @@
 package com.example.unomemo
 
-import android.app.TaskStackBuilder
-import android.content.Intent
-import android.content.res.Resources
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -16,14 +15,17 @@ import com.example.unomemo.databinding.ActivityMainBinding
 //TODO:  Converte png bildene til svg
 class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout:DrawerLayout
+    lateinit var shared :SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this,R.layout.activity_main)
 
         drawerLayout = binding.drawerLayout
-        val navHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHost = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHost.navController
+
 
         NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
         NavigationUI.setupWithNavController(binding.navView,navController)
@@ -33,5 +35,22 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         Log.v("navigatorName",navController.currentBackStackEntry!!.destination.navigatorName)
         return NavigationUI.navigateUp(navController, drawerLayout)||super.onSupportNavigateUp()
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        shared = getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        //shared.edit().putString("JSON", "{}").commit()
+
+        //adding boleans to global scope in app
+        var commited = shared.edit()
+            .putBoolean("splashScreenPlayed", false)
+            .putBoolean("loggedIn", false)
+            .putBoolean("showedLoginFirstTime", false).commit()
+
+        Log.v(
+            "MainActivity:onAttachedToWindow(); sharedPreferences()",
+            ".commit() is $commited"
+        )
     }
 }

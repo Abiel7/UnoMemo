@@ -85,12 +85,7 @@ lint/tmp/
 # lint/reports/
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+/.idea
 /.idea
 .DS_Store
 /build
