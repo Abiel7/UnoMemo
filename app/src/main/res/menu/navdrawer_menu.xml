@@ -15,8 +15,14 @@
         android:id="@+id/settingsFragment"
         android:title="settings" />
 
+
     <item
         android:id="@+id/customGame"
         android:title="Custom Game" />
+
+
+    <item
+        android:id="@+id/leaderboardFragment"
+        android:title="@string/leaderboard" />
 
 </menu>

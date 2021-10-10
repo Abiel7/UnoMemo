@@ -3,6 +3,7 @@ package com.example.unomemo.kategori
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.navigation.findNavController
@@ -27,6 +28,7 @@ class KategoriListeAdapter(): RecyclerView.Adapter<KategoriListeAdapter.ViewHold
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val katnavn: TextView = view.findViewById(R.id.textView)
         private val katbilde: ImageButton = view.findViewById(R.id.imageButton)
+
         fun bind(position: Int) {
             katnavn.text = KategoriData.kategorinavn[position]
             katbilde.setImageResource(KategoriData.kategoribilde[position])
@@ -36,6 +38,7 @@ class KategoriListeAdapter(): RecyclerView.Adapter<KategoriListeAdapter.ViewHold
 
 
             }
+
         }
     }
 }

@@ -1,11 +1,11 @@
 package com.example.unomemo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.databinding.FragmentKatgoryBinding
@@ -26,8 +26,6 @@ class KatgoryFragment() : Fragment() {
         recyclerView.adapter = listAdapter
         val layoutManager = GridLayoutManager(activity, 2)
         recyclerView.layoutManager = layoutManager
-
-        setHasOptionsMenu(true)
         return binding.root
     }
 
