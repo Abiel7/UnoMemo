@@ -3,6 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.3416666666666667" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/font/roboto.xml" value="0.36574074074074076" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/activity_main.xml" value="0.3020833333333333" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/dropdown_item.xml" value="0.18854166666666666" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/fragment_entry.xml" value="0.18854166666666666" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/fragment_katgory.xml" value="0.2" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/fragment_lastopp_bilde_fragement.xml" value="0.18854166666666666" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/fragment_leaderboard.xml" value="0.20652173913043478" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/fragment_login.xml" value="0.18854166666666666" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/fragment_spill_kort.xml" value="0.3020833333333333" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/kategori_list_item.xml" value="0.18958333333333333" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/spiller_item.xml" value="0.1" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/layout/spiller_item_textview.xml" value="0.20652173913043478" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/menu/kat_menu.xml" value="0.18958333333333333" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/menu/navdrawer_menu.xml" value="0.3458333333333333" />
+        <entry key="..\:/Programfiler (x86)/Programmering/mobilapplikasjoner/yttutorials/UnoMemo/app/src/main/res/menu/option_menu.xml" value="0.3458333333333333" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_baseline_chevron_right_10.xml" value="0.3828125" />
         <entry key="..\:/Users/abiel/OneDrive - USN/3 year/ApplicationKotlin/UnoMemo/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.22135416666666666" />
