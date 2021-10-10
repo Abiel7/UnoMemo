@@ -31,9 +31,11 @@ class KategoriListeAdapter(): RecyclerView.Adapter<KategoriListeAdapter.ViewHold
             katnavn.text = KategoriData.kategorinavn[position]
             katbilde.setImageResource(KategoriData.kategoribilde[position])
 
-            /*katbilde.setOnClickListener{
-                it.findNavController().navigate(R.id.action_kategoriFragment_to_nesteFragment)
-            }*/
+            katbilde.setOnClickListener{ view :View ->
+                                    view.findNavController().navigate(R.id.action_katgoryFragment_to_spillKort)
+
+
+            }
         }
     }
 }
