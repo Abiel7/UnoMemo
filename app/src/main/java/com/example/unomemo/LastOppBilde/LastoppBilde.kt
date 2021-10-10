@@ -9,15 +9,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLastoppBildeFragementBinding
-import com.example.unomemo.databinding.FragmentSpillKortBinding
+import com.example.unomemo.spillData.Vanskelighetsgrad
 
 
 class LastoppBilde : Fragment() {
@@ -31,6 +27,7 @@ class LastoppBilde : Fragment() {
     private val binding get()= _binding!!
 
     private lateinit var lastopp: VelgBildeAdapter
+    private val  bretSto : Vanskelighetsgrad = Vanskelighetsgrad.ENKEL
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,9 +47,9 @@ class LastoppBilde : Fragment() {
         binding.autoCompleteTextView.setAdapter(adapterArray)
 
         // liste av bilder brukeren har valgt
-        lastopp =  VelgBildeAdapter(requireContext(),antallBilderValgt,8)
+        lastopp =  VelgBildeAdapter(requireContext(),antallBilderValgt,bretSto)
         rvVelgBilder.adapter = lastopp
-        rvVelgBilder.layoutManager =  GridLayoutManager(this.context,2)
+        rvVelgBilder.layoutManager =  GridLayoutManager(this.context,bretSto.getBredde())
 
         return binding.root
 
