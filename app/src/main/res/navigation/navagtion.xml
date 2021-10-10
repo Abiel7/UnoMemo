@@ -8,56 +8,61 @@
         android:id="@+id/loginFragment"
         android:name="com.example.unomemo.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_katgoryFragment"
-            app:destination="@id/katgoryFragment"
-            />
-    </fragment>
+        tools:layout="@layout/fragment_login"/>
+
     <fragment
         android:id="@+id/entryPointFragment"
         android:name="com.example.unomemo.EntryPointFragment"
         android:label="fragment_entry"
-        tools:layout="@layout/fragment_entry">
-        <action
-            android:id="@+id/action_entryPointFragment_to_katgoryFragment"
-            app:destination="@id/katgoryFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_entry"/>
+
     <fragment
         android:id="@+id/katgoryFragment"
         android:name="com.example.unomemo.KatgoryFragment"
         android:label="fragment_katgory"
         tools:layout="@layout/fragment_katgory" >
 
-        <argument
-            android:name="selfNavigated"
-            app:argType="boolean"
-            android:defaultValue="false" />
         <action
             android:id="@+id/action_katgoryFragment_to_spillKort"
             app:destination="@id/spillKort" />
-        <action
-            android:id="@+id/action_katgoryFragment_self"
-            app:destination="@id/katgoryFragment"/>
         <action
             android:id="@+id/action_katgoryFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_katgoryFragment_to_entryPointFragment"
             app:destination="@id/entryPointFragment" />
-        <argument
-            android:name="splashScreenShowed"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
 
     <fragment
         android:id="@+id/spillKort"
         android:name="com.example.unomemo.spillKort.SpillKort"
         android:label="SpillKort" />
+
     <fragment
         android:id="@+id/lastoppBildeFragement"
         android:name="com.example.unomemo.LastOppBilde.LastoppBilde"
         android:label="fragment_lastopp_bilde_fragement"
         tools:layout="@layout/fragment_lastopp_bilde_fragement" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.unomemo.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.unomemo.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.unomemo.RulesFragment"
+        android:label="fragment_rules"
+        tools:layout="@layout/fragment_rules" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.unomemo.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>
