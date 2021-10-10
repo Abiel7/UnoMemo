@@ -37,5 +37,10 @@
         <item>Krevende 16</item>
     </string-array>
     <string name="extended_fab_content_desc">floting button skip account</string>
-    <string name="leaderboard">Leaderboard</string>
+    <string name="leaderboard">leaderboard</string>
+    <string name="custom_game">custom game</string>
+    <string name="settings">settings</string>
+    <string name="about">about</string>
+    <string name="rules">rules</string>
+    <string name="account">account</string>
 </resources>
