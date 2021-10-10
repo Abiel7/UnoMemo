@@ -7,7 +7,6 @@
         android:layout_height="wrap_content"
         android:text="@string/textview"
         android:padding="14dp"
-        android:textColor="@color/Home4"
         android:textSize="16sp"
-    android:textStyle="bold"
+        android:textStyle="bold"
         xmlns:android="http://schemas.android.com/apk/res/android"/>

@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.databinding.FragmentKatgoryBinding
@@ -42,8 +40,6 @@ class KatgoryFragment() : Fragment() {
         recyclerView.adapter = listAdapter
         val layoutManager = GridLayoutManager(activity, 2)
         recyclerView.layoutManager = layoutManager
-
-        setHasOptionsMenu(true)
         return binding.root
     }
 

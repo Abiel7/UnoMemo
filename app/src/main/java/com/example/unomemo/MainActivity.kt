@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.unomemo.databinding.ActivityMainBinding
 
+//TODO:  Converte png bildene til svg
 class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout:DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
