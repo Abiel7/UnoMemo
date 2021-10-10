@@ -16,7 +16,7 @@ ENKEL(8), MIDDELS(12), KRVENDE(16);
     }
 
     fun getHoyde() : Int{
-        return antallkort / getHoyde()
+        return antallkort / getBredde()
     }
 
 
