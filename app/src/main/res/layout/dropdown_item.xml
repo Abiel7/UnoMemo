@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textview"
+        android:text="TextView"
         android:padding="14dp"
         android:textColor="@color/Home4"
         android:textSize="16sp"
-    android:textStyle="bold"
+        android:textStyle="bold"
         xmlns:android="http://schemas.android.com/apk/res/android"/>

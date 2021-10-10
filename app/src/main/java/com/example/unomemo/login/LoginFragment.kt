@@ -1,9 +1,6 @@
 package com.example.unomemo.login
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -17,9 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLoginBinding
+
 import java.util.*
 
 /**
@@ -119,13 +116,13 @@ class LoginFragment : Fragment() {
                 passwordEditText.text.toString()
             )
         }
-
+        /**
+         * @author Svein
+         * */
         binding.extendedFabSkip!!.setOnClickListener {
-            findNavController(this).navigate(
-                LoginFragmentDirections
-                    .actionLoginFragmentToKatgoryFragment(selfNavigated = false)
-            )
+            findNavController(this).popBackStack(R.id.katgoryFragment, false)
         }
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
