@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO add drawable icons to represent nav opptions; icon-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/accountFragment"
@@ -17,4 +15,5 @@
         android:id="@+id/settingsFragment"
         android:title="settings" />
     <item android:title="Custom Game" />
+
 </menu>
