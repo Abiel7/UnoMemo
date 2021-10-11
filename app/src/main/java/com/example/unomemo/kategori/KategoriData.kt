@@ -8,14 +8,14 @@ class KategoriData {
         @JvmStatic
         var kategoribilde: Array<Int> = arrayOf(
             R.drawable.norge,
-            R.drawable.bil,
             R.drawable.dyr,
+            R.drawable.bil,
             R.drawable.mat
         )
         var kategorinavn: Array<String> = arrayOf(
             "Flagg",
-            "bil",
             "Dyr",
+            "bil",
             "Mat"
         )
         var spillerliste: Array<String> = arrayOf(

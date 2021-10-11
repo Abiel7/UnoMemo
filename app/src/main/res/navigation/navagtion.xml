@@ -2,54 +2,73 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/entryPointFragment">
+    app:startDestination="@id/katgoryFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.unomemo.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login"/>
+
+    <fragment
+        android:id="@+id/entryPointFragment"
+        android:name="com.example.unomemo.EntryPointFragment"
+        android:label="fragment_entry"
+        tools:layout="@layout/fragment_entry"/>
 
     <fragment
         android:id="@+id/katgoryFragment"
         android:name="com.example.unomemo.KatgoryFragment"
         android:label="fragment_katgory"
         tools:layout="@layout/fragment_katgory" >
+
         <action
             android:id="@+id/action_katgoryFragment_to_spillKort"
             app:destination="@id/spillKort" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/entryPointFragment"
-        android:name="com.example.unomemo.EntryPointFragment"
-        android:label="fragment_entry"
-        tools:layout="@layout/fragment_entry">
         <action
-            android:id="@+id/action_entryPointFragment_to_loginFragment"
+            android:id="@+id/action_katgoryFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.unomemo.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_entryPointFragment_to_katgoryFragment"
-            app:destination="@id/katgoryFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_katgoryFragment"
-            app:destination="@id/katgoryFragment"
-            />
+            android:id="@+id/action_katgoryFragment_to_entryPointFragment"
+            app:destination="@id/entryPointFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/spillKort"
         android:name="com.example.unomemo.spillKort.SpillKort"
         android:label="SpillKort" />
+
     <fragment
         android:id="@+id/lastoppBildeFragement"
         android:name="com.example.unomemo.LastOppBilde.LastoppBilde"
         android:label="fragment_lastopp_bilde_fragement"
         tools:layout="@layout/fragment_lastopp_bilde_fragement" />
+
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.example.unomemo.LeaderboardFragment"
         android:label="fragment_leaderboard"
         tools:layout="@layout/fragment_leaderboard" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.unomemo.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.unomemo.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.unomemo.RulesFragment"
+        android:label="fragment_rules"
+        tools:layout="@layout/fragment_rules" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.unomemo.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>
