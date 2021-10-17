@@ -1,4 +1,4 @@
-package com.example.unomemo.spillData
+package com.example.unomemo.spilldata
 
 enum class Vanskelighetsgrad(val antallkort:Int) {
 ENKEL(8), MIDDELS(12), KRVENDE(16);

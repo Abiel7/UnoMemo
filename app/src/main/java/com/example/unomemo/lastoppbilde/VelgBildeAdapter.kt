@@ -1,4 +1,4 @@
-package com.example.unomemo.LastOppBilde
+package com.example.unomemo.lastoppbilde
 
 import android.content.Context
 import android.net.Uri
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.R
-import com.example.unomemo.spillData.Vanskelighetsgrad
+import com.example.unomemo.spilldata.Vanskelighetsgrad
 
 class VelgBildeAdapter(private val lastoppBilde: Context,
                        private val antallBilderValgt: MutableList<Uri>,
@@ -29,6 +29,8 @@ class VelgBildeAdapter(private val lastoppBilde: Context,
 
     inner class ViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
         private val iamgeView = itemView.findViewById<ImageView>(R.id.telBilder)
+
+
         fun bind (uri: Uri){
             iamgeView.setImageURI(uri)
         }

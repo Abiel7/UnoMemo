@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.unomemo.spillData.Vanskelighetsgrad
+import com.example.unomemo.spilldata.Vanskelighetsgrad
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentSpillKortBinding
-import com.example.unomemo.spillData.KortInfo
-import com.example.unomemo.spillData.START_FLAGS
+import com.example.unomemo.spilldata.KortInfo
+import com.example.unomemo.spilldata.START_FLAGS
 
 
 class SpillKort : Fragment() {
@@ -34,10 +34,6 @@ class SpillKort : Fragment() {
 
     private var antPar =  0;
 
-
-
-
-
     companion object{
         private const val  TAG  = "SpillKort"
     }
@@ -45,6 +41,7 @@ class SpillKort : Fragment() {
     interface Click{
         fun onCardClicked(pos :Int)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSpillKortBinding.inflate(inflater,container,false)
@@ -71,7 +68,6 @@ class SpillKort : Fragment() {
 
         })
 
-
         recyc.adapter = spilAdapter  // adapter provides a binding for the data set to the views of the recycler view
         recyc.setHasFixedSize(true)
         recyc.layoutManager = GridLayoutManager(this.context,brettSto.getBredde())
@@ -96,10 +92,7 @@ class SpillKort : Fragment() {
 
     fun antallPar() : Int{
         return  brettSto.antallkort / 2
-
     }
-
-
 
     private fun oppAdapter(pos:Int){
 

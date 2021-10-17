@@ -1,4 +1,4 @@
-package com.example.unomemo.spillData
+package com.example.unomemo.spilldata
 
 data class KortInfo(
     val id : Int,
