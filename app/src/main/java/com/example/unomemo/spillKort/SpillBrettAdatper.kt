@@ -1,6 +1,5 @@
 package com.example.unomemo.spillKort
 
-import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
-import com.example.unomemo.spillData.Vanskelighetsgrad
+import com.example.unomemo.spilldata.Vanskelighetsgrad
 import com.example.unomemo.R
-import com.example.unomemo.spillData.KortInfo
-import kotlin.properties.Delegates
+import com.example.unomemo.spilldata.KortInfo
 
 
 class SpillBrettAdatper(
