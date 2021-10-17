@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon_game">icon spill</string>
+    <string name="prompt_email">E-post</string>
+    <string name="prompt_password">Passord</string>
+    <string name="action_sign_in">Logg inn eller registrer deg</string>
+    <string name="action_sign_in_short">Logg inn</string>
+    <string name="invalid_username">Ikke et gyldig brukernavn</string>
+    <string name="invalid_password">Passordet må inneholde> 5 tegn</string>
+    <string name="login_failed">Innlogging feilet</string>
+    <string name="action_skip_account">Hopp over</string>
+    <string name="action_account">Logg Inn</string>
+    <string name="easy">Lett - 8</string>
+    <string name="medium">Middels - 12</string>
+    <string name="hard">Vanskelig - 16</string>
+    <string name="pair">Par: 0 /3</string>
+    <string name="movement">" Bevegelse: 0"</string>
+    <string name="pass_on">Formidle</string>
+    <string name="try_again">Prøv igjen</string>
+    <string name="uppload_pictures">" Last opp bilder"</string>
+    <string name="choose">Velge</string>
+    <string name="save">Lagre</string>
+    <string name="name_game">Name Game</string>
+    <string name="leaderboard">leaderboard</string>
+    <string name="custom_game">tilpasset spill</string>
+    <string name="settings">innstillinger</string>
+    <string name="about">om</string>
+    <string name="rules">regler</string>
+    <string name="account">konto</string>
+</resources>

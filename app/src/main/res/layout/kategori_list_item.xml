@@ -27,7 +27,7 @@
             android:id="@+id/imageButton"
             android:layout_width="183dp"
             android:layout_height="133dp"
-            android:contentDescription="@string/bilde_av_kategori"
+            android:contentDescription="@string/icon_game"
             android:scaleType="centerCrop"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="9dp"
