@@ -35,7 +35,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="@string/par_0_3"
+                    android:text="@string/pair"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
             </androidx.cardview.widget.CardView>
 
@@ -52,7 +52,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="@string/beveglser_0"
+                    android:text="@string/movement"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
             </androidx.cardview.widget.CardView>
 
@@ -74,7 +74,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/g_videre"
+            android:text="@string/pass_on"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -6,21 +6,21 @@
     <item
         android:id="@+id/startPåNytt"
         android:icon="@drawable/ic_baseline_refresh_24"
-        android:title="@string/start_p_nytt"
-        app:showAsAction="always" />
+        android:title="@string/try_again"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/lett"
-        android:title="@string/enkel_8"
+        android:title="@string/easy"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/medium"
-        android:title="@string/middels_12"
+        android:title="@string/medium"
         app:showAsAction="never" />
     <item
         android:id="@+id/Vanskelig"
-        android:title="@string/krevende_16"
+        android:title="@string/hard"
         app:showAsAction="never" />
 
 
