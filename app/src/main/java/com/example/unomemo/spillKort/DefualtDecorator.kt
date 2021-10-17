@@ -4,7 +4,10 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class DefualtDecorator(private val hSPacing: Int,private val vSpacing:Int):RecyclerView.ItemDecoration() {
+class DefualtDecorator(
+        private val hSPacing: Int,
+        private val vSpacing:Int
+    ) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -13,8 +16,8 @@ class DefualtDecorator(private val hSPacing: Int,private val vSpacing:Int):Recyc
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.right =hSPacing;
-        outRect.left = hSPacing;
+        outRect.right =hSPacing
+        outRect.left = hSPacing
         if(parent.getChildLayoutPosition(view) == 0){
             outRect.top= vSpacing
         }
