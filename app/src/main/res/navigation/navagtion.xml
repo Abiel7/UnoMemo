@@ -54,7 +54,11 @@
         android:id="@+id/accountFragment"
         android:name="com.example.unomemo.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_redigerBrukerFragment"
+            app:destination="@id/redigerBrukerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/aboutFragment"
@@ -70,5 +74,14 @@
         android:name="com.example.unomemo.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/redigerBrukerFragment"
+        android:name="com.example.unomemo.RedigerBrukerFragment"
+        android:label="fragment_rediger_bruker"
+        tools:layout="@layout/fragment_rediger_bruker" >
+        <action
+            android:id="@+id/action_redigerBrukerFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
 
 </navigation>

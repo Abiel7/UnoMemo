@@ -9,24 +9,23 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         card_view:cardCornerRadius="25dp"
-
         android:shadowColor="@color/black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/spiller_item_constraint"
-            android:layout_width="match_parent"
+            android:layout_width="392dp"
             android:layout_height="wrap_content"
             android:padding="13dp">
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/spiller_plassering_textview"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toStartOf="@+id/spiller_navn_textview"
                 card_view:layout_constraintHorizontal_bias="0.333"
-                android:textAppearance="?attr/textAppearanceHeadline6"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +35,7 @@
                 android:layout_height="75dp"
                 android:gravity="center"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textSize="13sp"
+                android:textSize="25sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.268"
@@ -45,11 +44,11 @@
                 card_view:layout_constraintVertical_bias="0.384" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/spiller_poeng_textview"
                 android:layout_width="150dp"
                 android:layout_height="75dp"
                 android:layout_marginEnd="16dp"
+                android:gravity="center"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
