@@ -25,7 +25,7 @@ class SpillKort : Fragment() {
 
     private lateinit var spilAdapter :SpillBrettAdatper
 
-    private var brettSto : Vanskelighetsgrad = Vanskelighetsgrad.MIDDELS
+    private var brettSto : Vanskelighetsgrad = Vanskelighetsgrad.ENKEL
 
     private var kortInfo:List<KortInfo>? =null
    // private val _kortInfo get() =  kortInfo
