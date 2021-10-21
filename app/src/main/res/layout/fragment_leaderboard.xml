@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:id="@+id/leaderboard_constraint"
         android:layout_height="match_parent"
+        android:background="#F3DDDD"
         android:orientation="vertical">
 
         <TextView
@@ -21,22 +22,23 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/leaderboard_recyclerview"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8" />
+            app:layout_constraintVertical_bias="0.722" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/leaderboard_recyclerview"
-            android:layout_width="415dp"
+            android:layout_width="400dp"
             android:layout_height="500dp"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.709" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
