@@ -1,50 +1,45 @@
 <resources>
-    <string name="app_name">UnoMemo</string>
-    <string name="flag">flag</string>
-    <string name="kategorinavn">Kategorinavn</string>
-    <string name="bilde_av_kategori">bilde av kategori</string>
-    <string name="heading">heading</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="app_name" translatable="false">UnoMemo</string>
+    <string name="flag" translatable="false">flag</string>
+    <string name="icon_game">icon game</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome" translatable="false">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="action_skip_account">Skip</string>
     <string name="action_account">Login</string>
-    <string name="title_fragment_entrypoint">Entrypoint</string>
-    <string name="arrow_to_right_description">@string/action_skip_account</string>
-    <string name="title_activity_logo_aniamtion">LogoAniamtion</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="enkel_8">Enkel - 8</string>
-    <string name="middels_12">Middels - 12</string>
-    <string name="krevende_16">Krevende - 16</string>
-    <string name="par_0_3">Par: 0 / 3</string>
-    <string name="beveglser_0">Beveglser : 0</string>
-    <string name="g_videre">GÅ videre</string>
-    <string name="start_p_nytt">Start på Nytt</string>
-    <string name="last_opp_bilder">Last opp bilder</string>
-    <string name="velg">Velg</string>
-    <string name="lagre">Lagre</string>
-    <string name="gi_spillet_et_navn">Gi spillet et navn</string>
+    <string name="easy">Easy - 8</string>
+    <string name="medium">Medium - 12</string>
+    <string name="hard">Hard - 16</string>
+    <string name="pair">Pair: 0 / 3</string>
+    <string name="movement">Movement : 0</string>
+    <string name="pass_on">Pass On</string>
+    <string name="try_again">Try Again</string>
+    <string name="uppload_pictures">Upload Pictures</string>
+    <string name="choose">Choose</string>
+    <string name="save">Save</string>
+    <string name="name_game">Name Game</string>
 
-    <string-array name="Nivå">
-        <item>Enkel 8</item>
-        <item>Middels 12</item>
-        <item>Krevende 16</item>
+    <string-array name="Level">
+        <item>Easy 8</item>
+        <item>Medium 12</item>
+        <item>Hard 16</item>
     </string-array>
-    <string name="extended_fab_content_desc">floting button skip account</string>
+
+    <string name="extended_fab_content_desc" translatable="false">floting button skip account</string>
     <string name="leaderboard">leaderboard</string>
     <string name="custom_game">custom game</string>
     <string name="settings">settings</string>
     <string name="about">about</string>
     <string name="rules">rules</string>
     <string name="account">account</string>
-    <string name="skriv_nytt_brukernavn_her">Skriv nytt brukernavn her</string>
-    <string name="rediger_bruker">Rediger bruker</string>
-    <string name="velkommen_takk_for_at_du_bruker_v_r_app">Velkommen,takk for at du bruker vår app</string>
-    <string name="velkommen_takk_for_at_du_bruker_appen_vaar">Velkommen, takk for at du bruker appen vår</string>
+    <string name="animation_logo" translatable="false">logo for logo animation</string>
+    <string name="skriv_nytt_brukernavn_her">skriv nytt brukernavn her</string>
+    <string name="rediger_bruker">rediger_bruker</string>
+    <string name="velkommen_takk_for_at_du_bruker_appen_v_r">Velkommen, takk for at du bruker appen vår</string>
+    <string name="lagre">lagre</string>
 </resources>

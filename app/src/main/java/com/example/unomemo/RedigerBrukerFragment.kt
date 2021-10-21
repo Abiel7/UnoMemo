@@ -40,39 +40,6 @@ class RedigerBrukerFragment : Fragment() {
             container,
             false
         )
-
-        /*
-           btn_lagre_brukernavn = redigerBrukerBinding.btnLagreBrukernavn
-           et_rediger_brukernavn = redigerBrukerBinding.etRedigerBruker
-           var brukernavn: String = et_rediger_brukernavn.text.toString()
-           val brukernavn_map: Map<String, String> = mapOf("navn" to brukernavn)
-           btn_lagre_brukernavn.setOnClickListener {
-               set_bruker_navn(brukernavn_map)
-           }*/
-/*
-        et_rediger_brukernavn =redigerBrukerBinding.etRedigerBruker
-        btn_lagre_brukernavn = redigerBrukerBinding.btnLagreBrukernavn
-        val map = mutableMapOf<String, Any>()
-        val nyttBrukernavn = et_rediger_brukernavn.text.toString()
-        tv_rediger_brukernavn = redigerBrukerBinding.tvRedigerBruker
-        btn_lagre_brukernavn.setOnClickListener{
-            tv_rediger_brukernavn.text = et_rediger_brukernavn.text
-            if(et_rediger_brukernavn.text.isNotEmpty()){
-
-            val db = FirebaseFirestore.getInstance()
-                Log.d(TAG, "nytt brukernavn ${et_rediger_brukernavn.text}")
-
-                map["navn"] = et_rediger_brukernavn.text
-
-                val brukernavnRef = db.collection("user")
-                    .document("loY1De7TwrCzMPXNTrB9")
-
-                //brukernavnRef.update( "navn", et_rediger_brukernavn.text)
-                db.runTransaction { transaction ->
-                    transaction.update(brukernavnRef, "navn", et_rediger_brukernavn.text)
-                }
-            }
-        }*/
         et_rediger_brukernavn = redigerBrukerBinding.etRedigerBruker
         btn_lagre_brukernavn = redigerBrukerBinding.btnLagreBrukernavn
         tv_rediger_brukernavn = redigerBrukerBinding.tvRedigerBruker

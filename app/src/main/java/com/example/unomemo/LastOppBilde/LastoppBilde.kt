@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLastoppBildeFragementBinding
-import com.example.unomemo.spillData.Vanskelighetsgrad
+import com.example.unomemo.lastoppbilde.VelgBildeAdapter
+import com.example.unomemo.spilldata.Vanskelighetsgrad
 
 
 class LastoppBilde : Fragment() {
@@ -42,7 +43,7 @@ class LastoppBilde : Fragment() {
         btnLagre =  binding.btnLagre
 
 
-        val grad =  resources.getStringArray(R.array.Nivå)
+        val grad =  resources.getStringArray(R.array.Level)
         val adapterArray= ArrayAdapter(requireContext(),R.layout.dropdown_item,grad)
         binding.autoCompleteTextView.setAdapter(adapterArray)
 
