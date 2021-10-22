@@ -16,6 +16,9 @@ import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLoginBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 import java.util.*
 
