@@ -1,7 +1,7 @@
 package com.example.unomemo.bruker
 
 data class Bruker(
-    var email: String = "",
-    var username:String ="",
+    var id: String = "",
+    var navn:String ="",
     var url: String =""
 )

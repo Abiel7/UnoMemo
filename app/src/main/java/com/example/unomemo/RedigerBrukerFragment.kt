@@ -1,6 +1,8 @@
 package com.example.unomemo
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +12,19 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.unomemo.bruker.Bruker
 import com.example.unomemo.databinding.FragmentRedigerBrukerBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
+import java.lang.StringBuilder
 import kotlinx.coroutines.tasks.await
 
 class RedigerBrukerFragment : Fragment() {
-    val auth = FirebaseAuth.getInstance()
-
     private val brukerDocRef = Firebase.firestore.collection("user")
     lateinit var et_rediger_brukernavn: EditText
     lateinit var btn_lagre_brukernavn: Button
@@ -43,92 +45,59 @@ class RedigerBrukerFragment : Fragment() {
         tv_rediger_brukernavn = redigerBrukerBinding.tvRedigerBruker
         btn_lagre_brukernavn.setOnClickListener {
             val gammelBruker = getBruker()
-            val nyBrukerMap = getNyttBrukerEmail()
+            val nyBrukerMap = getNyttBrukernavn()
             updateBruker(gammelBruker, nyBrukerMap)
             tv_rediger_brukernavn.text = et_rediger_brukernavn.text
         }
         return redigerBrukerBinding.root
     }
-
+    //TODO: må hente ut id fra databasen. AKK no er den hardkoda
     private fun getBruker(): Bruker {
-        val username = et_rediger_brukernavn.text.toString()
-        val email = getBrukerEmail()
+        val navn = et_rediger_brukernavn.text.toString()
+        val id = "user@gmail.com"
         val link = "link"
-
-        return Bruker(email, username, link)
+        return Bruker(id,navn,link)
     }
 
-    private fun getNyttBrukerEmail(): Map<String, Any> {
+    private fun getNyttBrukernavn(): Map<String, Any> {
         val navn = et_rediger_brukernavn.text.toString()
         val map = mutableMapOf<String, Any>()
-        val db = FirebaseFirestore.getInstance()
-        var email = ""
-        db.collection("user")
-            .get()
-            .addOnSuccessListener { result ->
-                var bruker = auth.currentUser
-                if (bruker != null) {
-                    for (document in result) {
-                        if (bruker.email.toString() == document.data["email"].toString()) {
-                            email = document.data["email"].toString()
-                            map["email"] = email
-                        }
-                    }
-                }
-            }
         if (navn.isNotEmpty()) {
-            map["email"] = email
-            map["username"] = navn
+            map["id"] = "user@gmail.com"
+            map["navn"] = navn
             map["url"] = "link"
         }
         return map
     }
 
 
+    //TODO: Denne metoden funker. Eg må bare hente ut id'en til bruker og oppdatere brukernavnet med å finne id'en til brukeren som er logga inn
     private fun updateBruker(bruker: Bruker, nyBrukerMap: Map<String, Any>) =
         CoroutineScope(Dispatchers.IO).launch {
             val brukerQuery = brukerDocRef
-                .whereEqualTo("email", getBrukerEmail())
+                .whereEqualTo("id", bruker.id)
                 .get()
                 .await()
-            if (brukerQuery.documents.isNotEmpty()) {
-                for (doc in brukerQuery) {
+            if(brukerQuery.documents.isNotEmpty()){
+                for(doc in brukerQuery){
                     try {
-                        brukerDocRef.document(auth.uid.toString()).set(
+                        brukerDocRef.document(doc.id).set(
                             nyBrukerMap,
                             SetOptions.merge()
                         ).await()
-                        Toast.makeText(
-                            activity,
-                            "Nytt brukernavn lagret $bruker.navn",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } catch (e: Exception) {
-                        withContext(Dispatchers.Main) {
+                        Toast.makeText(activity, "Nytt brukernavn lagret $bruker.navn", Toast.LENGTH_LONG).show()
+                    }catch (e: Exception){
+                        withContext(Dispatchers.Main){
                             e.message
                         }
                     }
                 }
-            } else {
-                withContext(Dispatchers.Main) {
+            }
+            else{
+                withContext(Dispatchers.Main){
                     "No matches in this query"
                 }
             }
         }
 
-    fun getBrukerEmail(): String {
-        val db = FirebaseFirestore.getInstance()
-        var email = ""
-        db.collection("user")
-            .get()
-            .addOnSuccessListener { result ->
-                var bruker = auth.currentUser
-                if (bruker != null) {
-                    for (document in result) {
-                        email = document.data["email"].toString()
-                    }
-                }
-            }
-        return email
-    }
 }
