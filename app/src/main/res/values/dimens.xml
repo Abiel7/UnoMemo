@@ -1,5 +1,5 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Standard skjerm marginer, etter Android Design rettningslinjer. -->
     <dimen name="fragment_horizontal_margin">20dp</dimen>
     <dimen name="fragment_vertical_margin">20dp</dimen>
 </resources>
