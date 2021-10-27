@@ -36,11 +36,19 @@
     <fragment
         android:id="@+id/spillKort"
         android:name="com.example.unomemo.spillKort.SpillKort"
-        android:label="SpillKort" />
-
+        android:label="SpillKort" >
+        <action
+            android:id="@+id/action_spillKort_to_katgoryFragment"
+            app:destination="@id/katgoryFragment" />
+        <action
+            android:id="@+id/action_spillKort_to_leaderboardFragment2"
+            app:destination="@id/leaderboardFragment"
+            app:popUpTo="@id/leaderboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/lastoppBildeFragement"
-        android:name="com.example.unomemo.lastoppbilde.LastoppBilde"
+        android:name="com.example.unomemo.LastOppBilde.LastoppBilde"
         android:label="fragment_lastopp_bilde_fragement"
         tools:layout="@layout/fragment_lastopp_bilde_fragement" />
 
