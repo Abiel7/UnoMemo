@@ -1,8 +1,10 @@
 package com.example.unomemo.login
 
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,21 +12,29 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.*
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.unomemo.R
+import com.example.unomemo.data.Source
 import com.example.unomemo.databinding.FragmentLoginBinding
-
-import java.util.*
+import com.google.firebase.FirebaseOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
 
 /**
- * Auto generert kode fra android studio
+ * @author svein
  *
  * */
 class LoginFragment : Fragment() {
-    private lateinit var loginViewModel: LoginViewModel
+
+    private lateinit var auth:FirebaseAuth
+
+    private lateinit var storage:FirebaseFirestore
+
+    private lateinit var firebaseUser: FirebaseUser
     private var _binding: FragmentLoginBinding? = null
     private lateinit var navController: NavController
 
@@ -32,11 +42,29 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onStart() {
+        super.onStart()
+        if (auth.currentUser!=null) {
+            firebaseUser = auth.currentUser!!
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        auth = Source(
+            this.requireContext(),
+            Firebase.app.name,
+            FirebaseOptions.fromResource(this.requireContext())!!
+        ).firebaseAuth()
+
+        storage = Source(
+                this.requireContext(),
+        Firebase.app.name,
+        FirebaseOptions.fromResource(this.requireContext())!!
+        ).storage()
+
         navController = findNavController(this)
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,43 +72,16 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        loginViewModel = ViewModelProvider(
-            this,
-            LoginViewModelFactory()
-        ).get(LoginViewModel::class.java)
-
         val usernameEditText = binding.username
         val passwordEditText = binding.password
         val loginButton = binding.login
-        val loadingProgressBar = binding.loading
+        //val loadingProgressBar = binding.loading
+        //midlertidig TODO slette og implimentere viewmodel med login methode og registrerings methode
 
-        loginViewModel.loginFormState.observe(viewLifecycleOwner,
-            Observer { loginFormState ->
-                if (loginFormState == null) {
-                    return@Observer
-                }
-                loginButton.isEnabled = loginFormState.isDataValid
-                loginFormState.usernameError?.let {
-                    usernameEditText.error = getString(it)
-                }
-                loginFormState.passwordError?.let {
-                    passwordEditText.error = getString(it)
-                }
-            })
+        lateinit var email:String
+        lateinit var pass:String
 
-        loginViewModel.loginResult.observe(viewLifecycleOwner,
-            Observer { loginResult ->
-                loginResult ?: return@Observer
-                loadingProgressBar.visibility = View.GONE
-                loginResult.error?.let {
-                    showLoginFailed(it)
-                }
-                loginResult.success?.let {
-                    updateUiWithUser(it)
-                }
-            })
-
+        // end
         val afterTextChangedListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // ignore
@@ -91,42 +92,55 @@ class LoginFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                loginViewModel.loginDataChanged(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
+                email =  usernameEditText.text.toString()
+                pass = passwordEditText.text.toString()
             }
         }
+
         usernameEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
+                email = usernameEditText.text.toString()
+                pass = passwordEditText.text.toString()
             }
             false
         }
 
         loginButton.setOnClickListener {
-            loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString()
-            )
+                //loadingProgressBar.visibility = View.VISIBLE
+                updateUiWithUser()
+                auth.createUserWithEmailAndPassword(email,pass).let { taskCreate ->
+                    if(taskCreate.isComplete && taskCreate.isSuccessful){
+                        firebaseUser = auth.currentUser!!
+                        storage.collection("user").document(firebaseUser.uid).set(
+                            hashMapOf(
+                                "username" to email.split("@")[0],
+                                "email" to email
+                            )).addOnFailureListener(requireActivity()) { e ->
+                                Log.w("LoginFragment ", "Error user registering", e)
+                            }.addOnSuccessListener(requireActivity()){
+                              Log.d("LoginFragment ","sucsessfull user cration")
+                            }
+                    }else {
+                        auth.signInWithEmailAndPassword(email,pass).let { taskLogin ->
+                            if(taskLogin.isComplete && taskLogin.isSuccessful){
+                                firebaseUser = auth.currentUser!!
+                            }
+                        }
+                    }
+                }
         }
-        /**
-         * @author Svein
-         * */
-        binding.extendedFabSkip!!.setOnClickListener {
-            findNavController(this).popBackStack(R.id.katgoryFragment, false)
+
+
+        binding.extendedFabSkip.setOnClickListener {
+            findNavController(this).popBackStack(R.id.gamemenuFragment, false)
         }
 
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
+    private fun updateUiWithUser() {
+        val welcome = getString(R.string.welcome)
         // TODO : initiate successful logged in experience
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
