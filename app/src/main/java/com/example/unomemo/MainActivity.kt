@@ -2,17 +2,24 @@ package com.example.unomemo
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
+import android.os.LocaleList
 import android.util.Log
+import android.view.textclassifier.TextClassifierEvent
+import android.view.textclassifier.TextLanguage
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.unomemo.databinding.ActivityMainBinding
+import java.util.*
 
-//TODO:  Converte png bildene til svg
+//TODO:  konvetere png bildene til svg
 class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout:DrawerLayout
     lateinit var shared :SharedPreferences
@@ -33,7 +40,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
-        Log.v("navigatorName",navController.currentBackStackEntry!!.destination.navigatorName)
+        Log.v(
+            "navigatorName",
+            navController.currentBackStackEntry!!.destination.navigatorName
+        )
         return NavigationUI.navigateUp(navController, drawerLayout)||super.onSupportNavigateUp()
     }
 
@@ -48,9 +58,12 @@ class MainActivity : AppCompatActivity() {
             .putBoolean("loggedIn", false)
             .putBoolean("showedLoginFirstTime", false).commit()
 
-        Log.v(
+        //dubug info
+        Log.d(
             "MainActivity:onAttachedToWindow(); sharedPreferences()",
             ".commit() is $commited"
         )
     }
+
+
 }
