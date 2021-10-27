@@ -1,5 +1,7 @@
 package com.example.unomemo.LastOppBilde
 
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,52 +11,117 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLastoppBildeFragementBinding
 import com.example.unomemo.lastoppbilde.VelgBildeAdapter
+import com.example.unomemo.spillKort.SpillKort
 import com.example.unomemo.spilldata.Vanskelighetsgrad
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 
 
 class LastoppBilde : Fragment() {
-   private lateinit var rvVelgBilder :RecyclerView
-   private lateinit var giSpillNavn :EditText
-   private lateinit var btnLagre : Button
+    private lateinit var rvChoseImages :RecyclerView
+    private lateinit var gameName :EditText
+    private lateinit var btnSave : Button
 
-   private val antallBilderValgt =  mutableListOf<Uri>() //liste som skal inneholde bilder som er valgt fra brukerens telefon
+    private val chosenImages =  mutableListOf<Uri>() // identifies where a particular resource lives //liste som skal inneholde bilder som er valgt fra brukerens telefon
 
     private var _binding : FragmentLastoppBildeFragementBinding?=null
     private val binding get()= _binding!!
 
-    private lateinit var lastopp: VelgBildeAdapter
-    private val  bretSto : Vanskelighetsgrad = Vanskelighetsgrad.ENKEL
+    lateinit var storage: FirebaseStorage
+
+    private val db = Firebase.firestore
+    private lateinit var imageLoaderAdapter: VelgBildeAdapter
+    lateinit var  gameSize : Vanskelighetsgrad
+
+    lateinit var  activityResultLauncher: ActivityResultLauncher<Intent>
+
+    var numberOfImages = -1
+
+    interface ImageListener{
+        fun onImageClick()
+    }
+
+    companion object{
+        val TAG =  "LastoppBilde"
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         _binding = FragmentLastoppBildeFragementBinding.inflate(inflater,container,false)
 
 
-        rvVelgBilder =  binding.rvLastopp
-        giSpillNavn =  binding.giSpillNavn//view.findViewById(R.id.giSpillNavn)
-        btnLagre =  binding.btnLagre
+        rvChoseImages =  binding.rvLastopp
+        gameName =  binding.giSpillNavn//view.findViewById(R.id.giSpillNavn)
+        btnSave =  binding.btnLagre
+        numberOfImages = SpillKort().sumMuchOnGame()
+        activityResultLauncher =  registerForActivityResult(
+            ActivityResultContracts.
+            StartActivityForResult(), object  : ActivityResultCallback<ActivityResult> {
+                override fun onActivityResult(result: ActivityResult?) {
+                    if (result!!.resultCode!= Activity.RESULT_OK || result.data == null){
+                        return
+                    }
+
+                    val chosenUri = result.data
+                    val clipData =  result.data!!.clipData
+                    if (clipData != null) {
+                        for (i in 0  until clipData.itemCount){
+                            val item =  clipData.getItemAt(i)
+                            if(chosenImages.size < numberOfImages){
+                                chosenImages.add(item.uri)
+                            }
+                        }
+
+                    }
+                    imageLoaderAdapter.run { notifyDataSetChanged() }
+                    // chosenImages.add(chosenUri.)
+                }
 
 
-        val grad =  resources.getStringArray(R.array.Level)
-        val adapterArray= ArrayAdapter(requireContext(),R.layout.dropdown_item,grad)
-        binding.autoCompleteTextView.setAdapter(adapterArray)
+            })
+        storage = Firebase.storage
 
-        // liste av bilder brukeren har valgt
-        lastopp =  VelgBildeAdapter(requireContext(),antallBilderValgt,bretSto)
-        rvVelgBilder.adapter = lastopp
-        rvVelgBilder.layoutManager =  GridLayoutManager(this.context,bretSto.getBredde())
+
+
+        imageLoaderAdapter =  VelgBildeAdapter(requireContext(),chosenImages,gameSize,object: ImageListener{
+            override fun onImageClick() {
+                imagePickerIntent()
+            }
+
+        })
+        rvChoseImages.adapter = imageLoaderAdapter
+        rvChoseImages.layoutManager =  GridLayoutManager(this.context,8)
 
         return binding.root
 
     }
+
+
+
+    private fun  imagePickerIntent(){
+        val intent =  Intent(Intent.ACTION_PICK)
+        intent.type =  "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
+        startActivity(Intent.createChooser(intent,"Velg Bilder"),)
+    }
+
+
 
 
 }
