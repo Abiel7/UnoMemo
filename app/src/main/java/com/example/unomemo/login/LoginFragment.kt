@@ -114,19 +114,21 @@ class LoginFragment : Fragment() {
                         firebaseUser = auth.currentUser!!
                         storage.collection("user").document(firebaseUser.uid).set(
                             hashMapOf(
-                                "username" to email.split("@")[0],
-                                "email" to email
+                                "navn" to email.split("@")[0],
+                                "id" to email
                             )
                         ).addOnFailureListener(requireActivity()) { e ->
                             Log.w("LoginFragment ", "Error user registering", e)
                         }.addOnSuccessListener(requireActivity()) {
                             Log.d("LoginFragment ", "successful user creation")
                         }
+                        findNavController(this).popBackStack()
                     }else {
                         auth.signInWithEmailAndPassword(email, pass)
                             .addOnCompleteListener(this.requireActivity()) { taskLogin ->
                                 if (taskLogin.isSuccessful) {
                                     firebaseUser = auth.currentUser!!
+                                    findNavController(this).popBackStack()
                                 }
                             }
                     }
