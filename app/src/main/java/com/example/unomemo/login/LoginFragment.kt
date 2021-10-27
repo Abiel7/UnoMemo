@@ -21,6 +21,7 @@ import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.app
 
@@ -115,11 +116,9 @@ class LoginFragment : Fragment() {
                         firebaseUser = auth.currentUser!!
                         storage.collection("user").document(firebaseUser.uid).set(
                             hashMapOf(
-                                "username" to email.split("@")[0],
-                                "email" to email
-                            )).addOnFailureListener(requireActivity()) { e ->
-                                Log.w("LoginFragment ", "Error user registering", e)
-                            }.addOnSuccessListener(requireActivity()){
+                                "navn" to email.split("@")[0],
+                                "id" to email
+                            )).addOnSuccessListener(requireActivity()){
                               Log.d("LoginFragment ","sucsessfull user cration")
                             }
                     }else {
@@ -155,14 +154,6 @@ class LoginFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    private fun login() {
-
-    }
-
-    private fun register() {
-
     }
 
 }
