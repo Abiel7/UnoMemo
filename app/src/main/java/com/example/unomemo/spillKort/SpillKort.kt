@@ -3,8 +3,11 @@ package com.example.unomemo.spillKort
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.spilldata.Vanskelighetsgrad
@@ -12,27 +15,34 @@ import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentSpillKortBinding
 import com.example.unomemo.spilldata.KortInfo
 import com.example.unomemo.spilldata.START_FLAGS
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 
 class SpillKort : Fragment() {
 
     private lateinit var recyc: RecyclerView
-    private lateinit var parTextView: TextView
-    private lateinit var bevegTextView: TextView
-
+    private lateinit var root : ConstraintLayout
+    private lateinit var nextBtn: Button
     private var _binding : FragmentSpillKortBinding?=null
     private val binding get()= _binding!!
 
-    private lateinit var spilAdapter :SpillBrettAdatper
+    private lateinit var gameAdappeter :SpillBrettAdatper
 
-    private var brettSto : Vanskelighetsgrad = Vanskelighetsgrad.MIDDELS
+    private var gameSize : Vanskelighetsgrad = Vanskelighetsgrad.ENKEL
 
-    private var kortInfo:List<KortInfo>? =null
-   // private val _kortInfo get() =  kortInfo
+    private var cardINFO:List<KortInfo>? =null
+
 
     private var index :Int? =  null
 
-    private var antPar =  0;
+    private var matches =  0
+
+    private var moves = 0
+
+    private val db =  FirebaseFirestore.getInstance()
+
 
     companion object{
         private const val  TAG  = "SpillKort"
@@ -41,112 +51,220 @@ class SpillKort : Fragment() {
     interface Click{
         fun onCardClicked(pos :Int)
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         _binding = FragmentSpillKortBinding.inflate(inflater,container,false)
 
 
-        recyc =  binding.spillKortRecycler//every  recycler view have to core compo8nents one is the adapter  and layoutManager(measures  and positions  item view)
-        parTextView =  binding.antallPar
-        bevegTextView =  binding.antallBevegelser
-
-        recyc.addItemDecoration(DefualtDecorator(15,15))
-
-        val flags:List<Int> =  START_FLAGS.shuffled().take(antallPar())
-
-        val shuffleIMG :List<Int> = (flags + flags).shuffled()
-
-        // lag ny liste av shuffleIMG og send det in til kort info data
-        kortInfo = shuffleIMG.map { KortInfo(it) }
-
-        spilAdapter =  SpillBrettAdatper(requireContext(),brettSto,kortInfo!!, object : Click{
-            override fun onCardClicked(pos: Int) {
-                Log.i(TAG,"$pos")
-                oppAdapter(pos)
-            }
-
-        })
-
-        recyc.adapter = spilAdapter  // adapter provides a binding for the data set to the views of the recycler view
-        recyc.setHasFixedSize(true)
-        recyc.layoutManager = GridLayoutManager(this.context,brettSto.getBredde())
-
+        recyc =  binding.spillKortRecycler//every  recycler view have to core components one is the adapter  and layoutManager(measures  and positions  item view)
+        root =  binding.constraintLayout
+        nextBtn =  binding.gVidere
+        val flags: List<Int> = START_FLAGS.shuffled().take(sumMuchOnGame())
+        val shuffledItems :List<Int> = (flags + flags).shuffled()
+        cardINFO = shuffledItems.map { KortInfo(it.hashCode()) }
+        setupGameAgain()
         setHasOptionsMenu(true)
+
+
 
         return  binding.root
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+
         super.onCreateOptionsMenu(menu, inflater)
+
         inflater.inflate(R.menu.option_menu,menu)
+
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+
+      /*  when(gameSize) {
+            DifLEvel.EASY -> R.id.itemEasy
+            DifLEvel.MEDIUM -> R.id.itemMedium
+            DifLEvel.HARD -> R.id.itemHard
+        }
+
+        item.setOnMenuItemClickListener {
+            gameSize =  when(item.itemId){
+                R.id.itemEasy -> DifLEvel.EASY
+                R.id.itemMedium -> DifLEvel.MEDIUM
+
+                else -> DifLEvel.HARD
+            }
+            setupGameAgain()
+            true
+        }
+
+       */
+
+
+        return  super.onOptionsItemSelected(item)
+
     }
 
-        // 8 kort 4 svar
-        // 12 kort  6  svar
-        //16 kort 8 svar
+    private fun setupGameAgain() {
 
-    fun antallPar() : Int{
-        return  brettSto.antallkort / 2
+        recyc.addItemDecoration(DefualtDecorator(15,15))
+        gameAdappeter =  SpillBrettAdatper(requireContext(),gameSize,
+            cardINFO!!, object : Click{
+                override fun onCardClicked(pos: Int) {
+                    Log.i(TAG," on click ${pos}, ${getMoves()}")
+                    updateAdappter(pos)
+                }
+
+            })
+
+        recyc.adapter = gameAdappeter  // adapter provides a binding for the data set to the views of the recycler view
+        recyc.setHasFixedSize(true)
+        recyc.layoutManager = GridLayoutManager(this.context,gameSize.getBredde())
     }
 
-    private fun oppAdapter(pos:Int){
 
-        flipKort(pos)
-        // informing the adapter about changes
-        spilAdapter.run { notifyDataSetChanged() }
+    /**
+     *  finner ut hvor mange par det skal være basert på vankelighets grad brukeren har valgt
+     *  så 8 kort 4 svar
+    12 kort  6  svar
+    16 kort 8 svar
+     */
+    fun sumMuchOnGame() : Int{
+        return  gameSize.antallkort / 2
+
     }
 
 
-    private fun flipKort(pos: Int){
-        val kort  = kortInfo?.get(pos)
+    /**
+     * oppdaterer adaptere
+     */
+    private fun updateAdappter(pos:Int){
 
+
+        if (matchPares()) {
+            return
+        }
+        if (isUpCards(pos)){
+            return
+        }
+        if(flipCards(pos)){
+            nextBtn.setOnClickListener {
+                //Snackbar.make(root,"Bli ferdig med Spillet",Snackbar.LENGTH_SHORT).show()
+                if(!matchPares()){
+                    Snackbar.make(root,"Bli ferdig med Spillet",Snackbar.LENGTH_SHORT).show()
+                }
+                writeMovesToDB()
+                it.findNavController().navigate(SpillKortDirections.actionSpillKortToLeaderboardFragment2())
+
+
+            }
+
+        }
+
+        gameAdappeter.run { notifyDataSetChanged() }
+    }
+
+
+    /**
+     * sjekker hvor mange kort som er flippet over
+     * caser vi må sjekke
+     * case 1 om 0 kort er flippet, flip kortene tilbake til start bildet
+     * case 2 om 1 kort er flippet , flip kort og sjekk om den matcher med den neste kort som blir flippet
+     * case 3 om 2 kort er flipet flip kortene tilbake til start bildet
+     *
+     */
+    private fun flipCards(pos: Int):Boolean{
+        this.moves++
+        val kort  = cardINFO?.get(pos)
+        var matchFound = false
         if(index == null){
-            // this means they were either  0 cards previosuly flipped over
-                // or there were 2 cards previously flipped over and they are not matched
-                    // trun them back again by seting isup to false
-                        // and update the index to the postion taht is clicked
-            restKort();
-            index = pos;
+            // case1 og case2
+            resetCard()
+            index = pos
+
+            print(" index in first if statement  $index")
 
         } else {
-                check(index!!,pos)
-            index=null;
+            matchFound = check(index!!,pos)
+
+            index=null
+            print( "Else statment $index")
         }
         kort!!.isUp = !kort.isUp
+        return matchFound
     }
 
-
+    /**
+     * metode som sjekker om to kort er likt basert på id
+     */
     private fun check(pos1:Int,pos2:Int) :Boolean {
-        val idIfno1  =  kortInfo!![pos1].id
-        val idIfno2 = kortInfo!![pos2].id
+        val idIfno1  =  cardINFO!![pos1].id
+        val idIfno2 = cardINFO!![pos2].id
 
-        if(kortInfo!![pos1].id != kortInfo!![pos2].id){
+        if(cardINFO!![pos1].id != cardINFO!![pos2].id){
             Log.i(TAG, "$idIfno1 $idIfno2")
-            return false;
+            return false
         }
-        kortInfo!![pos1].isaMatch =  true;
-        kortInfo!![pos2].isaMatch =  true;
-        antPar++;
-        print( "this is antal kort $antPar" )
+        cardINFO!![pos1].isaMatch =  true
+        cardINFO!![pos2].isaMatch =  true
+        matches++
+        print( "this is antal kort $matches" )
         return true
 
     }
 
-
-    private fun restKort() {
-        for (i in kortInfo!! ){
+    /**
+     * set kort tilbake til orginal bilde,
+     *
+     */
+    private fun resetCard() {
+        for (i in cardINFO!! ){
             if(!i.isaMatch){
-                i.isUp= false;
+                i.isUp= false
             }
         }
+    }
+
+    /**
+     * hvor mange kort  er oppe
+     */
+    fun matchPares( ):Boolean{
+        return matches == sumMuchOnGame()
+    }
+
+    /**
+     * om en kort er flipped eller ikke
+     */
+    fun isUpCards(pos: Int): Boolean {
+        return cardINFO?.get(pos)?.isUp == true
     }
 
 
 
 
+
+    private fun getMoves():Int{
+        return this.moves.times(2)
+    }
+
+    fun writeMovesToDB(){
+
+        val dbCollection =  db.collection("LeaderBoard").document()
+        val data =  hashMapOf(
+            "navn" to "DummyId",
+            "poengsum" to getMoves(),
+            "uid" to "${UUID.randomUUID()}"
+        )
+        dbCollection.set(data).addOnSuccessListener { documentReference ->
+            Log.d(TAG,"DocumentSnapshot written with ID:${documentReference}")
+        }
+            .addOnFailureListener{
+                Log.w(TAG,"Error adding Document")
+
+            }
+    }
 }
