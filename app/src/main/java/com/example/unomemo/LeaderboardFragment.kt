@@ -18,11 +18,12 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import java.lang.StringBuilder
 
 
 class LeaderboardFragment : Fragment() {
-    private val lbDocRef = Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.DESCENDING)
+
+    private val lbDocRef =
+        Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.DESCENDING)
     private lateinit var leaderboardListe: ArrayList<Leaderboard>
     lateinit var leaderboardAdapter: LeaderboardAdapter
     lateinit var db: FirebaseFirestore
@@ -49,21 +50,27 @@ class LeaderboardFragment : Fragment() {
 
     private fun realTimeLeaderboardUpdate() {
         db = FirebaseFirestore.getInstance()
-        db.collection("LeaderBoard").orderBy("poengsum", Query.Direction.DESCENDING)
-            .addSnapshotListener(object: EventListener<QuerySnapshot>{
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if(error != null){
-                        Log.e("Firestore error", error.message.toString())
-                        return
-                    }
-                    for (doc: DocumentChange in value?.documentChanges!!){
-                        if(doc.type == DocumentChange.Type.ADDED){
-                            leaderboardListe.add(doc.document.toObject(Leaderboard::class.java))
-                        }
-                    }
-                    leaderboardAdapter.notifyDataSetChanged()
-                }
-            })
-    }
+        lbDocRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            firebaseFirestoreException?.let {
+                Toast.makeText(this.context, it.message, Toast.LENGTH_LONG).show()
+                return@addSnapshotListener
+            }
 
+
+            querySnapshot?.let {
+                for (doc in it) {
+                    val leaderboard = doc.toObject<Leaderboard>()
+                    leaderboardListe.add(Leaderboard(
+                        leaderboard.uid,
+                        leaderboard.navn,
+                        leaderboard.poengsum
+                    ))
+                }
+                leaderboardAdapter.notifyDataSetChanged()
+            }
+
+        }
+    }
 }
+
+

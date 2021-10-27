@@ -16,6 +16,7 @@ import com.example.unomemo.databinding.FragmentSpillKortBinding
 import com.example.unomemo.spilldata.KortInfo
 import com.example.unomemo.spilldata.START_FLAGS
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -43,6 +44,7 @@ class SpillKort : Fragment() {
 
     private val db =  FirebaseFirestore.getInstance()
 
+    private val auth = FirebaseAuth.getInstance()
 
     companion object{
         private const val  TAG  = "SpillKort"
@@ -255,7 +257,7 @@ class SpillKort : Fragment() {
 
         val dbCollection =  db.collection("LeaderBoard").document()
         val data =  hashMapOf(
-            "navn" to "DummyId",
+            "navn" to getBrukerNavn(),
             "poengsum" to getMoves(),
             "uid" to "${UUID.randomUUID()}"
         )
@@ -266,5 +268,20 @@ class SpillKort : Fragment() {
                 Log.w(TAG,"Error adding Document")
 
             }
+    }
+
+    private fun getBrukerNavn(): String{
+        var navn =""
+        db.collection("user")
+            .get()
+            .addOnSuccessListener { result ->
+                var bruker = auth.currentUser
+                if(bruker != null){
+                    for (i in result){
+                        navn = i.data["navn"].toString()
+                    }
+                }
+            }
+        return navn
     }
 }
