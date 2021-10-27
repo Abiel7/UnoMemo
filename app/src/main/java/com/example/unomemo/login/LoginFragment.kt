@@ -2,6 +2,8 @@ package com.example.unomemo.login
 
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,9 @@ import com.example.unomemo.databinding.FragmentLoginBinding
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
 
 /**
  * @author svein
@@ -25,17 +30,9 @@ import com.google.firebase.auth.FirebaseUser
  * */
 class LoginFragment : Fragment() {
 
-    private var auth:FirebaseAuth = Source(
-        this.requireContext(),
-        "UnoMemo",
-        FirebaseOptions.fromResource(this.requireContext())!!
-    ).firebaseAuth()
+    private lateinit var auth:FirebaseAuth
 
-    private var storage = Source(
-        this.requireContext(),
-        "UnoMemo",
-        FirebaseOptions.fromResource(this.requireContext())!!
-    ).storage()
+    private lateinit var storage:FirebaseFirestore
 
     private lateinit var firebaseUser: FirebaseUser
     private var _binding: FragmentLoginBinding? = null
@@ -56,6 +53,18 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        auth = Source(
+            this.requireContext(),
+            Firebase.app.name,
+            FirebaseOptions.fromResource(this.requireContext())!!
+        ).firebaseAuth()
+
+        storage = Source(
+                this.requireContext(),
+        Firebase.app.name,
+        FirebaseOptions.fromResource(this.requireContext())!!
+        ).storage()
+
         navController = findNavController(this)
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -67,8 +76,12 @@ class LoginFragment : Fragment() {
         val passwordEditText = binding.password
         val loginButton = binding.login
         //val loadingProgressBar = binding.loading
+        //midlertidig TODO slette og implimentere viewmodel med login methode og registrerings methode
 
-        /*
+        lateinit var email:String
+        lateinit var pass:String
+
+        // end
         val afterTextChangedListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // ignore
@@ -79,18 +92,13 @@ class LoginFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                    usernameEditText.text.toString()
-                    passwordEditText.text.toString()
+                email =  usernameEditText.text.toString()
+                pass = passwordEditText.text.toString()
             }
-        }*/
+        }
 
-        //midlertidig TODO slette og implimentere viewmodel med login methode og registrerings methode
-        lateinit var email:String
-        lateinit var pass:String
-        // end
-
-        //usernameEditText.addTextChangedListener(afterTextChangedListener)
-        //passwordEditText.addTextChangedListener(afterTextChangedListener)
+        usernameEditText.addTextChangedListener(afterTextChangedListener)
+        passwordEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 email = usernameEditText.text.toString()
@@ -105,7 +113,7 @@ class LoginFragment : Fragment() {
                 auth.createUserWithEmailAndPassword(email,pass).let { taskCreate ->
                     if(taskCreate.isComplete && taskCreate.isSuccessful){
                         firebaseUser = auth.currentUser!!
-                        storage.collection("users").document(firebaseUser.tenantId.toString()).set(
+                        storage.collection("user").document(firebaseUser.uid).set(
                             hashMapOf(
                                 "username" to email.split("@")[0],
                                 "email" to email
@@ -118,8 +126,6 @@ class LoginFragment : Fragment() {
                         auth.signInWithEmailAndPassword(email,pass).let { taskLogin ->
                             if(taskLogin.isComplete && taskLogin.isSuccessful){
                                 firebaseUser = auth.currentUser!!
-                            }else{
-                                TODO("fatal error")
                             }
                         }
                     }
