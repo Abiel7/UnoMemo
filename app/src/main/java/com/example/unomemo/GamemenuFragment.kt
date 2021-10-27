@@ -11,12 +11,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.unomemo.databinding.FragmentKatgoryBinding
+import com.example.unomemo.databinding.FragmentGamemenuBinding
 import com.example.unomemo.kategori.KategoriListeAdapter
 
 
 
-class KatgoryFragment() : Fragment() {
+/**
+ * 
+ * */
+class GamemenuFragment() : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,9 +27,9 @@ class KatgoryFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = DataBindingUtil
-            .inflate<FragmentKatgoryBinding>(
+            .inflate<FragmentGamemenuBinding>(
                 inflater,
-                R.layout.fragment_katgory,
+                R.layout.fragment_gamemenu,
                 container,
                 false
             )
@@ -50,12 +53,12 @@ class KatgoryFragment() : Fragment() {
             sharedPreferences.all["splashScreenPlayed"].toString()
         )
         if(!value){
-            findNavController(this).navigate(KatgoryFragmentDirections.actionKatgoryFragmentToEntryPointFragment())
+            findNavController(this).navigate(GamemenuFragmentDirections.actionGamemenuFragmentToEntryPointFragment())
             sharedPreferences.edit().putBoolean("splashScreenPlayed", true).commit()
         }
 
         //for debugging og feilsøking TODO sanitize
-        Log.v(
+        Log.d(
             "KategoryFragment:onAttach; context.getSharedPrefrense().all['splashScreenPlayed']",
             "value: $value"
         )
@@ -70,12 +73,11 @@ class KatgoryFragment() : Fragment() {
             .getSharedPreferences("prefs",Context.MODE_PRIVATE)
         var showedLoginFirstTime = sharedPreferences.all["showedLoginFirstTime"]
             .toString() ?.toBooleanStrictOrNull() ?: nullErr(
-            sharedPreferences.all["showedLoginFirstTime"].toString()
-
-        )
+                sharedPreferences.all["showedLoginFirstTime"].toString()
+            )
         if (!showedLoginFirstTime) {
             findNavController(this).navigate(
-                KatgoryFragmentDirections.actionKatgoryFragmentToLoginFragment()
+                GamemenuFragmentDirections.actionGamemenuFragmentToLoginFragment()
             )
             sharedPreferences.edit().putBoolean("showedLoginFirstTime", true).commit()
         }

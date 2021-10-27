@@ -1,31 +1,19 @@
 package com.example.unomemo
 
-import android.app.TaskStackBuilder
-import android.os.Bundle
-import android.os.DropBoxManager
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
+import android.os.*
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.unomemo.databinding.FragmentEntryBinding
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [EntryPointFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * [Fragment] subklasse.
+ *  @author svein
  */
-class EntryPointFragment : Fragment() {
+class EntryPointFragment() : Fragment() {
     lateinit var binding : FragmentEntryBinding
     lateinit var navController: NavController
 
@@ -48,10 +36,8 @@ class EntryPointFragment : Fragment() {
         //TODO animation of logo when ending, navigate to @id/loginFragment
         Handler(Looper.getMainLooper()).postDelayed({
             navController = findNavController(this)
-            navController.popBackStack(R.id.katgoryFragment,false)
+            navController.popBackStack(R.id.gamemenuFragment,false)
         },3000)
-
-
 
         super.onCreate(savedInstanceState)
     }
@@ -73,5 +59,6 @@ class EntryPointFragment : Fragment() {
         }
     }
 */
+
 
 }

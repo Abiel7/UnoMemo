@@ -73,7 +73,7 @@ class SpillKort : Fragment() {
         recyc.layoutManager = GridLayoutManager(this.context,brettSto.getBredde())
 
         setHasOptionsMenu(true)
-
+        recyc.Recycler()
         return  binding.root
     }
 
