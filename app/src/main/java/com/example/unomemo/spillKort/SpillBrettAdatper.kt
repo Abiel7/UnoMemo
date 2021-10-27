@@ -19,9 +19,9 @@ class SpillBrettAdatper(
     private val listner : SpillKort.Click
 ) : RecyclerView.Adapter<SpillBrettAdatper.ViewHolder>() {
 
-        companion object{
-            private const val TAG = "SpillBrettAdatper"
-        }
+    companion object{
+        private const val TAG = "SpillBrettAdatper"
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(spillFragment).inflate(R.layout.spillkortlayout,parent,false)

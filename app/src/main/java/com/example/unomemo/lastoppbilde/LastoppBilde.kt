@@ -1,4 +1,4 @@
-package com.example.unomemo.LastOppBilde
+package com.example.unomemo.lastoppbilde
 
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLastoppBildeFragementBinding
-import com.example.unomemo.lastoppbilde.VelgBildeAdapter
 import com.example.unomemo.spilldata.Vanskelighetsgrad
 
 

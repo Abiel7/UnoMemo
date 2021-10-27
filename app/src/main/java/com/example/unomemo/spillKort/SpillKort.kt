@@ -25,7 +25,7 @@ class SpillKort : Fragment() {
 
     private lateinit var spilAdapter :SpillBrettAdatper
 
-    private var brettSto : Vanskelighetsgrad = Vanskelighetsgrad.MIDDELS
+    private var brettSto : Vanskelighetsgrad = Vanskelighetsgrad.ENKEL
 
     private var kortInfo:List<KortInfo>? =null
    // private val _kortInfo get() =  kortInfo
@@ -73,7 +73,7 @@ class SpillKort : Fragment() {
         recyc.layoutManager = GridLayoutManager(this.context,brettSto.getBredde())
 
         setHasOptionsMenu(true)
-
+        recyc.Recycler()
         return  binding.root
     }
 
