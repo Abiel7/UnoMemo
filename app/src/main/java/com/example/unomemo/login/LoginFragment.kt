@@ -53,17 +53,14 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        auth = Source(
+        val source = Source(
             this.requireContext(),
             Firebase.app.name,
             FirebaseOptions.fromResource(this.requireContext())!!
-        ).firebaseAuth()
+        )
+        auth = source.firebaseAuth()
 
-        storage = Source(
-                this.requireContext(),
-        Firebase.app.name,
-        FirebaseOptions.fromResource(this.requireContext())!!
-        ).storage()
+        storage = FirebaseFirestore.getInstance(auth.app)
 
         navController = findNavController(this)
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -108,26 +105,30 @@ class LoginFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
-                //loadingProgressBar.visibility = View.VISIBLE
-                updateUiWithUser()
-                auth.createUserWithEmailAndPassword(email,pass).let { taskCreate ->
-                    if(taskCreate.isComplete && taskCreate.isSuccessful){
+            //loadingProgressBar.visibility = View.VISIBLE
+
+            auth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this.requireActivity()) { taskCreate ->
+                    if (taskCreate.isSuccessful) {
+                        updateUiWithUser()
                         firebaseUser = auth.currentUser!!
                         storage.collection("user").document(firebaseUser.uid).set(
                             hashMapOf(
                                 "username" to email.split("@")[0],
                                 "email" to email
-                            )).addOnFailureListener(requireActivity()) { e ->
-                                Log.w("LoginFragment ", "Error user registering", e)
-                            }.addOnSuccessListener(requireActivity()){
-                              Log.d("LoginFragment ","sucsessfull user cration")
-                            }
-                    }else {
-                        auth.signInWithEmailAndPassword(email,pass).let { taskLogin ->
-                            if(taskLogin.isComplete && taskLogin.isSuccessful){
-                                firebaseUser = auth.currentUser!!
-                            }
+                            )
+                        ).addOnFailureListener(requireActivity()) { e ->
+                            Log.w("LoginFragment ", "Error user registering", e)
+                        }.addOnSuccessListener(requireActivity()) {
+                            Log.d("LoginFragment ", "successful user creation")
                         }
+                    }else {
+                        auth.signInWithEmailAndPassword(email, pass)
+                            .addOnCompleteListener(this.requireActivity()) { taskLogin ->
+                                if (taskLogin.isSuccessful) {
+                                    firebaseUser = auth.currentUser!!
+                                }
+                            }
                     }
                 }
         }
