@@ -78,7 +78,7 @@ class LastoppBilde : Fragment() {
                         return
                     }
 
-                    val chosenUri = result.data
+                    val chosenUri = result.data!!.data
                     val clipData =  result.data!!.clipData
                     if (clipData != null) {
                         for (i in 0  until clipData.itemCount){
@@ -88,9 +88,11 @@ class LastoppBilde : Fragment() {
                             }
                         }
 
+                    } else if (chosenUri !=null){
+                        chosenImages.add(chosenUri)
                     }
                     imageLoaderAdapter.run { notifyDataSetChanged() }
-                    // chosenImages.add(chosenUri.)
+                    btnSave.isEnabled =  showButton()
                 }
 
 
@@ -99,14 +101,14 @@ class LastoppBilde : Fragment() {
 
 
 
-        imageLoaderAdapter =  VelgBildeAdapter(requireContext(),chosenImages,gameSize,object: ImageListener{
+        imageLoaderAdapter =  VelgBildeAdapter(requireContext(),chosenImages,gameSize, object: ImageListener{
             override fun onImageClick() {
                 imagePickerIntent()
             }
 
         })
         rvChoseImages.adapter = imageLoaderAdapter
-        rvChoseImages.layoutManager =  GridLayoutManager(this.context,8)
+        rvChoseImages.layoutManager =  GridLayoutManager(this.context,gameSize.getBredde())
 
         return binding.root
 
@@ -121,6 +123,16 @@ class LastoppBilde : Fragment() {
         startActivity(Intent.createChooser(intent,"Velg Bilder"),)
     }
 
+
+    private  fun  showButton() :Boolean {
+        if(chosenImages.size != numberOfImages){
+            return false
+        }
+        if(gameName.text.isBlank() ){
+            return  false
+        }
+        return  true
+    }
 
 
 
