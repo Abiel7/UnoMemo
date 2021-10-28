@@ -34,7 +34,7 @@ class KategoriListeAdapter(): RecyclerView.Adapter<KategoriListeAdapter.ViewHold
             katbilde.setImageResource(KategoriData.kategoribilde[position])
 
             katbilde.setOnClickListener{ view :View ->
-                                    view.findNavController().navigate(R.id.action_katgoryFragment_to_spillKort)
+                view.findNavController().navigate(R.id.action_gamemenuFragment_to_spillKort)
 
 
             }

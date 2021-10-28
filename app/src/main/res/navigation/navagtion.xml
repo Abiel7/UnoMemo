@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/katgoryFragment">
+    app:startDestination="@id/gamemenuFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -17,19 +17,19 @@
         tools:layout="@layout/fragment_entry"/>
 
     <fragment
-        android:id="@+id/katgoryFragment"
-        android:name="com.example.unomemo.KatgoryFragment"
-        android:label="fragment_katgory"
-        tools:layout="@layout/fragment_katgory" >
+        android:id="@+id/gamemenuFragment"
+        android:name="com.example.unomemo.GamemenuFragment"
+        android:label="fragment_gamemenu"
+        tools:layout="@layout/fragment_gamemenu" >
 
         <action
-            android:id="@+id/action_katgoryFragment_to_spillKort"
+            android:id="@+id/action_gamemenuFragment_to_spillKort"
             app:destination="@id/spillKort" />
         <action
-            android:id="@+id/action_katgoryFragment_to_loginFragment"
+            android:id="@+id/action_gamemenuFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_katgoryFragment_to_entryPointFragment"
+            android:id="@+id/action_gamemenuFragment_to_entryPointFragment"
             app:destination="@id/entryPointFragment" />
     </fragment>
 
@@ -39,7 +39,7 @@
         android:label="SpillKort" >
         <action
             android:id="@+id/action_spillKort_to_katgoryFragment"
-            app:destination="@id/katgoryFragment" />
+            app:destination="@id/gamemenuFragment" />
         <action
             android:id="@+id/action_spillKort_to_leaderboardFragment2"
             app:destination="@id/leaderboardFragment"
