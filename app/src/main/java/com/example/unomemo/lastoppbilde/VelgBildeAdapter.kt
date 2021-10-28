@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.unomemo.LastOppBilde.LastoppBilde
+import com.example.unomemo.lastoppbilde.LastoppBilde
 import com.example.unomemo.R
 import com.example.unomemo.spilldata.Vanskelighetsgrad
 

@@ -12,58 +12,73 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.databinding.FragmentLeaderboardBinding
+import com.example.unomemo.databinding.FragmentSpillKortBinding
 import com.example.unomemo.leaderboard.Leaderboard
 import com.example.unomemo.leaderboard.LeaderboardAdapter
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import java.lang.StringBuilder
 
 
 class LeaderboardFragment : Fragment() {
-    private val lbDocRef = Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.DESCENDING)
+
+    private val lbDocRef =
+        Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.ASCENDING)
     private lateinit var leaderboardListe: ArrayList<Leaderboard>
     lateinit var leaderboardAdapter: LeaderboardAdapter
     lateinit var db: FirebaseFirestore
+
+    private var _binding : FragmentLeaderboardBinding?=null
+    private val binding get()= _binding!!
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        realTimeLeaderboardUpdate()
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentLeaderboardBinding>(
-            inflater,
-            R.layout.fragment_leaderboard,
-            container,
-            false
-        )
+        _binding = FragmentLeaderboardBinding.inflate(inflater,container,false)
+
+
         leaderboardListe = arrayListOf()
         val recyclerView: RecyclerView = binding.leaderboardRecyclerview
         leaderboardAdapter = LeaderboardAdapter(leaderboardListe)
         recyclerView.adapter = leaderboardAdapter
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-        realTimeLeaderboardUpdate()
+        //realTimeLeaderboardUpdate()
         return binding.root
     }
 
     private fun realTimeLeaderboardUpdate() {
         db = FirebaseFirestore.getInstance()
-        db.collection("LeaderBoard").orderBy("poengsum", Query.Direction.DESCENDING)
-            .addSnapshotListener(object: EventListener<QuerySnapshot>{
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if(error != null){
-                        Log.e("Firestore error", error.message.toString())
-                        return
-                    }
-                    for (doc: DocumentChange in value?.documentChanges!!){
-                        if(doc.type == DocumentChange.Type.ADDED){
-                            leaderboardListe.add(doc.document.toObject(Leaderboard::class.java))
-                        }
-                    }
-                    leaderboardAdapter.notifyDataSetChanged()
-                }
-            })
-    }
+        lbDocRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            firebaseFirestoreException?.let {
+                Toast.makeText(this.context, it.message, Toast.LENGTH_LONG).show()
+                return@addSnapshotListener
+            }
 
+
+            querySnapshot?.let {
+                for (doc in it) {
+                    val leaderboard = doc.toObject<Leaderboard>()
+                    leaderboardListe.add(Leaderboard(
+                        leaderboard.uid,
+                        leaderboard.navn,
+                        leaderboard.poengsum
+                    ))
+                }
+                leaderboardAdapter.notifyDataSetChanged()
+            }
+
+        }
+    }
 }
+
+

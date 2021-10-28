@@ -1,5 +1,4 @@
 package com.example.unomemo.leaderboard
-
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +32,7 @@ class LeaderboardAdapter(private val leaderboardListe: ArrayList<Leaderboard>) :
 
         val leaderboard: Leaderboard = leaderboardListe[position]
         holder.spillernavn.text = leaderboard.navn
-        holder.poengsum.text = leaderboard.poengsum.toString()
+       holder.poengsum.text = leaderboard.poengsum.toString()
         if (position == 0) {
             setFirstPlace(holder)
         }

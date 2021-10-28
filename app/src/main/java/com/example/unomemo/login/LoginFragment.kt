@@ -53,6 +53,18 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        auth = Source(
+            this.requireContext(),
+            Firebase.app.name,
+            FirebaseOptions.fromResource(this.requireContext())!!
+        ).firebaseAuth()
+
+        storage = Source(
+                this.requireContext(),
+        Firebase.app.name,
+        FirebaseOptions.fromResource(this.requireContext())!!
+        ).storage()
+
         val source = Source(
             this.requireContext(),
             Firebase.app.name,
@@ -105,7 +117,11 @@ class LoginFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
+                //loadingProgressBar.visibility = View.VISIBLE
+                //updateUiWithUser()
+
             //loadingProgressBar.visibility = View.VISIBLE
+
 
             auth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this.requireActivity()) { taskCreate ->

@@ -16,6 +16,7 @@ import com.example.unomemo.databinding.FragmentSpillKortBinding
 import com.example.unomemo.spilldata.KortInfo
 import com.example.unomemo.spilldata.START_FLAGS
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -43,6 +44,7 @@ class SpillKort : Fragment() {
 
     private val db =  FirebaseFirestore.getInstance()
 
+    private val auth = FirebaseAuth.getInstance()
 
     companion object{
         private const val  TAG  = "SpillKort"
@@ -254,11 +256,13 @@ class SpillKort : Fragment() {
     fun writeMovesToDB(){
 
         val dbCollection =  db.collection("LeaderBoard").document()
+       var bruker = auth.currentUser
         val data =  hashMapOf(
-            "navn" to "DummyId",
+            "navn" to bruker?.email.toString(),
             "poengsum" to getMoves(),
             "uid" to "${UUID.randomUUID()}"
         )
+
         dbCollection.set(data).addOnSuccessListener { documentReference ->
             Log.d(TAG,"DocumentSnapshot written with ID:${documentReference}")
         }
@@ -267,4 +271,26 @@ class SpillKort : Fragment() {
 
             }
     }
+
+
+    /*
+    fun getBrukernavn(): String {
+        var navn = ""
+        val db = FirebaseFirestore.getInstance()
+        db.collection("user")
+            .get()
+            .addOnSuccessListener { result ->
+                var bruker = auth.currentUser
+                if (bruker != null) {
+                    for (document in result) {
+                        if (bruker.email.toString() == document.data["id"].toString()) {
+                            navn = document.data["navn"].toString()
+                        }
+                    }
+                }
+            }
+        return navn
+    }
+*/
+
 }
