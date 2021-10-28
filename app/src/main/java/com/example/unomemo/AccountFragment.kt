@@ -1,26 +1,22 @@
 package com.example.unomemo
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.unomemo.bruker.Bruker
 import com.example.unomemo.databinding.FragmentAccountBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+
+import com.google.firebase.auth.FirebaseAuth
+
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
-import java.lang.StringBuilder
+
 
 class AccountFragment : Fragment() {
     lateinit var auth: FirebaseAuth
@@ -64,4 +60,3 @@ class AccountFragment : Fragment() {
                 }
             }
     }
-}

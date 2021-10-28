@@ -65,6 +65,15 @@ class LoginFragment : Fragment() {
         FirebaseOptions.fromResource(this.requireContext())!!
         ).storage()
 
+        val source = Source(
+            this.requireContext(),
+            Firebase.app.name,
+            FirebaseOptions.fromResource(this.requireContext())!!
+        )
+        auth = source.firebaseAuth()
+
+        storage = FirebaseFirestore.getInstance(auth.app)
+
         navController = findNavController(this)
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -110,6 +119,10 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
                 //loadingProgressBar.visibility = View.VISIBLE
                 //updateUiWithUser()
+
+            //loadingProgressBar.visibility = View.VISIBLE
+
+
             auth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this.requireActivity()) { taskCreate ->
                     if (taskCreate.isSuccessful) {
@@ -137,7 +150,6 @@ class LoginFragment : Fragment() {
                     }
                 }
         }
-
 
 
         binding.extendedFabSkip.setOnClickListener {
