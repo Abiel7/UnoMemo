@@ -109,28 +109,35 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
                 //loadingProgressBar.visibility = View.VISIBLE
-                updateUiWithUser()
-                auth.createUserWithEmailAndPassword(email,pass).let { taskCreate ->
-                    if(taskCreate.isComplete && taskCreate.isSuccessful){
+                //updateUiWithUser()
+            auth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this.requireActivity()) { taskCreate ->
+                    if (taskCreate.isSuccessful) {
+                        updateUiWithUser()
                         firebaseUser = auth.currentUser!!
                         storage.collection("user").document(firebaseUser.uid).set(
                             hashMapOf(
-                                "username" to email.split("@")[0],
-                                "email" to email
-                            )).addOnFailureListener(requireActivity()) { e ->
-                                Log.w("LoginFragment ", "Error user registering", e)
-                            }.addOnSuccessListener(requireActivity()){
-                              Log.d("LoginFragment ","sucsessfull user cration")
-                            }
-                    }else {
-                        auth.signInWithEmailAndPassword(email,pass).let { taskLogin ->
-                            if(taskLogin.isComplete && taskLogin.isSuccessful){
-                                firebaseUser = auth.currentUser!!
-                            }
+                                "navn" to email.split("@")[0],
+                                "id" to email
+                            )
+                        ).addOnFailureListener(requireActivity()) { e ->
+                            Log.w("LoginFragment ", "Error user registering", e)
+                        }.addOnSuccessListener(requireActivity()) {
+                            Log.d("LoginFragment ", "successful user creation")
                         }
+                        findNavController(this).popBackStack()
+                    }else {
+                        auth.signInWithEmailAndPassword(email, pass)
+                            .addOnCompleteListener(this.requireActivity()) { taskLogin ->
+                                if (taskLogin.isSuccessful) {
+                                    firebaseUser = auth.currentUser!!
+                                    findNavController(this).popBackStack()
+                                }
+                            }
                     }
                 }
         }
+
 
 
         binding.extendedFabSkip.setOnClickListener {

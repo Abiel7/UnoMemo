@@ -1,4 +1,4 @@
-package com.example.unomemo.LastOppBilde
+package com.example.unomemo.lastoppbilde
 
 import android.app.Activity
 import android.content.Intent
@@ -42,7 +42,7 @@ class LastoppBilde : Fragment() {
 
     private val db = Firebase.firestore
     private lateinit var imageLoaderAdapter: VelgBildeAdapter
-    lateinit var  gameSize : Vanskelighetsgrad
+     var  gameSize : Vanskelighetsgrad  =  Vanskelighetsgrad.ENKEL
 
     lateinit var  activityResultLauncher: ActivityResultLauncher<Intent>
 

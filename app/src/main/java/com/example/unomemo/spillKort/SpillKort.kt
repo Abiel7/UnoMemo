@@ -256,11 +256,13 @@ class SpillKort : Fragment() {
     fun writeMovesToDB(){
 
         val dbCollection =  db.collection("LeaderBoard").document()
+       var bruker = auth.currentUser
         val data =  hashMapOf(
-            "navn" to getBrukerNavn(),
+            "navn" to bruker?.email.toString(),
             "poengsum" to getMoves(),
             "uid" to "${UUID.randomUUID()}"
         )
+
         dbCollection.set(data).addOnSuccessListener { documentReference ->
             Log.d(TAG,"DocumentSnapshot written with ID:${documentReference}")
         }
@@ -270,18 +272,25 @@ class SpillKort : Fragment() {
             }
     }
 
-    private fun getBrukerNavn(): String{
-        var navn =""
+
+    /*
+    fun getBrukernavn(): String {
+        var navn = ""
+        val db = FirebaseFirestore.getInstance()
         db.collection("user")
             .get()
             .addOnSuccessListener { result ->
                 var bruker = auth.currentUser
-                if(bruker != null){
-                    for (i in result){
-                        navn = i.data["navn"].toString()
+                if (bruker != null) {
+                    for (document in result) {
+                        if (bruker.email.toString() == document.data["id"].toString()) {
+                            navn = document.data["navn"].toString()
+                        }
                     }
                 }
             }
         return navn
     }
+*/
+
 }

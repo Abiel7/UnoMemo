@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.databinding.FragmentLeaderboardBinding
+import com.example.unomemo.databinding.FragmentSpillKortBinding
 import com.example.unomemo.leaderboard.Leaderboard
 import com.example.unomemo.leaderboard.LeaderboardAdapter
 import com.google.firebase.firestore.*
@@ -23,28 +24,35 @@ import com.google.firebase.ktx.Firebase
 class LeaderboardFragment : Fragment() {
 
     private val lbDocRef =
-        Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.DESCENDING)
+        Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.ASCENDING)
     private lateinit var leaderboardListe: ArrayList<Leaderboard>
     lateinit var leaderboardAdapter: LeaderboardAdapter
     lateinit var db: FirebaseFirestore
+
+    private var _binding : FragmentLeaderboardBinding?=null
+    private val binding get()= _binding!!
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        realTimeLeaderboardUpdate()
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentLeaderboardBinding>(
-            inflater,
-            R.layout.fragment_leaderboard,
-            container,
-            false
-        )
+        _binding = FragmentLeaderboardBinding.inflate(inflater,container,false)
+
+
         leaderboardListe = arrayListOf()
         val recyclerView: RecyclerView = binding.leaderboardRecyclerview
         leaderboardAdapter = LeaderboardAdapter(leaderboardListe)
         recyclerView.adapter = leaderboardAdapter
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-        realTimeLeaderboardUpdate()
+        //realTimeLeaderboardUpdate()
         return binding.root
     }
 

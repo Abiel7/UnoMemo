@@ -49,15 +49,16 @@ class RedigerBrukerFragment : Fragment() {
         btn_lagre_brukernavn.setOnClickListener {
             val gammelBruker = getBruker()
             val nyBrukerMap = getNyttBrukerMap()
-            updateBruker(gammelBruker, nyBrukerMap)
+            updateBruker(nyBrukerMap)
             tv_rediger_brukernavn.text = et_rediger_brukernavn.text
         }
         return redigerBrukerBinding.root
     }
 
     private fun getBruker(): Bruker {
+        var bruker = auth.currentUser
         val navn = et_rediger_brukernavn.text.toString()
-        val id = getBrukerId()
+        val id = bruker?.email.toString()
         val link = "link"
 
         return Bruker(id, navn, link)
@@ -90,10 +91,11 @@ class RedigerBrukerFragment : Fragment() {
     }
 
 
-    private fun updateBruker(bruker: Bruker, nyBrukerMap: Map<String, Any>) =
+    private fun updateBruker(nyBrukerMap: Map<String, Any>) =
         CoroutineScope(Dispatchers.IO).launch {
+            val bruker = auth.currentUser
             val brukerQuery = brukerDocRef
-                .whereEqualTo("id", getBrukerId())
+                .whereEqualTo("id", bruker?.email.toString())
                 .get()
                 .await()
             if (brukerQuery.documents.isNotEmpty()) {
@@ -121,20 +123,6 @@ class RedigerBrukerFragment : Fragment() {
             }
         }
 
-    fun getBrukerId(): String {
-        val db = FirebaseFirestore.getInstance()
-        var id = ""
-        db.collection("user")
-            .get()
-            .addOnSuccessListener { result ->
-                var bruker = auth.currentUser
-                if (bruker != null) {
-                    for (document in result) {
-                        id = document.data["id"].toString()
-                    }
-                }
-            }
-        return id
-    }
+
 
 }
