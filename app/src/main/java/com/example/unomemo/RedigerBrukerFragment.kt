@@ -12,8 +12,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.unomemo.bruker.Bruker
 import com.example.unomemo.databinding.FragmentRedigerBrukerBinding
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -42,24 +45,13 @@ class RedigerBrukerFragment : Fragment() {
         btn_lagre_brukernavn = redigerBrukerBinding.btnLagreBrukernavn
         tv_rediger_brukernavn = redigerBrukerBinding.tvRedigerBruker
         btn_lagre_brukernavn.setOnClickListener {
-            val gammelBruker = getBruker()
             val nyBrukerMap = getNyttBrukerMap()
             updateBruker(nyBrukerMap)
-            updateBruker(gammelBruker, nyBrukerMap)
+
 
             tv_rediger_brukernavn.text = et_rediger_brukernavn.text
         }
         return redigerBrukerBinding.root
-    }
-
-    private fun getBruker(): Bruker {
-        var bruker = auth.currentUser
-        val navn = et_rediger_brukernavn.text.toString()
-        val id = bruker?.email.toString()
-        val id = getBrukerId()
-        val link = "link"
-
-        return Bruker(id, navn, link)
     }
 
     private fun getNyttBrukerMap(): Map<String, Any> {
@@ -88,15 +80,11 @@ class RedigerBrukerFragment : Fragment() {
         return map
     }
 
-
     private fun updateBruker(nyBrukerMap: Map<String, Any>) =
-    private fun updateBruker(bruker: Bruker, nyBrukerMap: Map<String, Any>) =
         CoroutineScope(Dispatchers.IO).launch {
             val bruker = auth.currentUser
             val brukerQuery = brukerDocRef
                 .whereEqualTo("id", bruker?.email.toString())
-
-                .whereEqualTo("id", getBrukerId())
                 .get()
                 .await()
             if (brukerQuery.documents.isNotEmpty()) {
@@ -123,22 +111,4 @@ class RedigerBrukerFragment : Fragment() {
                 }
             }
         }
-
-
-    fun getBrukerId(): String {
-        val db = FirebaseFirestore.getInstance()
-        var id = ""
-        db.collection("user")
-            .get()
-            .addOnSuccessListener { result ->
-                var bruker = auth.currentUser
-                if (bruker != null) {
-                    for (document in result) {
-                        id = document.data["id"].toString()
-                    }
-                }
-            }
-        return id
-    }
-
 }
