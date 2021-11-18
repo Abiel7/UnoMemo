@@ -20,6 +20,15 @@ ENKEL(8), MIDDELS(12), KRVENDE(16);
     }
 
 
+    /**
+     *  finner ut hvor mange par det skal være basert på vankelighets grad brukeren har valgt
+     *  så 8 kort 4 svar
+    12 kort  6  svar
+    16 kort 8 svar
+     */
+    fun sumMuchOnGame() : Int{
+        return  antallkort / 2
 
+    }
 
 }
