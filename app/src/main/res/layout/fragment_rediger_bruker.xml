@@ -16,10 +16,10 @@
         android:text="@string/skriv_nytt_brukernavn_her"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintHorizontal_bias="0.309"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.532" />
 
     <EditText
         android:id="@+id/et_rediger_bruker"
@@ -29,23 +29,24 @@
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.282"
+        app:layout_constraintHorizontal_bias="0.298"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintVertical_bias="0.606"
+        android:inputType="" />
 
     <Button
         android:id="@+id/btn_lagre_brukernavn"
         android:layout_width="105dp"
         android:layout_height="62dp"
         android:layout_marginStart="258dp"
-        android:text="@string/lagre"
+        android:text="Lagre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <TextView
         android:id="@+id/tv_rediger_bruker"
@@ -58,18 +59,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.804" />
 
-    <ImageView
-        android:id="@+id/IW_endre_avatar_bilde"
+    <androidx.cardview.widget.CardView
+        android:layout_marginBottom="350dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.106"
-        tools:src="@tools:sample/avatars" />
+        tools:ignore="MissingConstraints">
 
+        <ImageView
+            app:cardCornerRadius="100dp"
+            android:id="@+id/IW_endre_avatar_bilde"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.395"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.116"
+            tools:src="@tools:sample/avatars" />
+
+    </androidx.cardview.widget.CardView>
     <TextView
         android:id="@+id/tv_endre_avatar_bilde"
         android:layout_width="wrap_content"
@@ -78,10 +92,11 @@
         android:text="Endre avatar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/IW_endre_avatar_bilde"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.384" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

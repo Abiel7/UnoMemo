@@ -1,8 +1,11 @@
 package com.example.unomemo
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,7 +17,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.example.unomemo.bruker.Bruker
-import com.example.unomemo.databinding.FragmentRedigerBrukerBinding
+
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -30,16 +33,24 @@ import java.util.jar.Manifest
 import android.os.Build.*
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import com.example.unomemo.databinding.FragmentRedigerBrukerBinding
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import java.io.File
+import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class RedigerBrukerFragment : Fragment() {
     val auth = FirebaseAuth.getInstance()
-
+    private var imageUri: Uri? = null
     private val brukerDocRef = Firebase.firestore.collection("user")
     lateinit var et_rediger_brukernavn: EditText
     lateinit var btn_lagre_brukernavn: Button
     lateinit var tv_rediger_brukernavn: TextView
     lateinit var byttAvatarIMG: ImageView
+    lateinit var byttAvatarTV: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,28 +65,57 @@ class RedigerBrukerFragment : Fragment() {
         et_rediger_brukernavn = redigerBrukerBinding.etRedigerBruker
         btn_lagre_brukernavn = redigerBrukerBinding.btnLagreBrukernavn
         tv_rediger_brukernavn = redigerBrukerBinding.tvRedigerBruker
+        byttAvatarIMG = redigerBrukerBinding.IWEndreAvatarBilde
+        byttAvatarTV = redigerBrukerBinding.tvEndreAvatarBilde
+        byttAvatarTV.setOnClickListener{
+            updateAvatarBilde()
+        }
+        val filename = "bilde1"
+        var storage = Firebase.storage.reference.child("avatarbilder/$filename")
+
+        val localfile = File.createTempFile("tempimage", "jpg")
+
+        val progressDialog = ProgressDialog(activity)
+        progressDialog.setMessage("Fetching image...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+
+        storage.getFile(localfile).addOnSuccessListener {
+            if(progressDialog.isShowing)
+                progressDialog.dismiss()
+            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            redigerBrukerBinding.IWEndreAvatarBilde.setImageBitmap(bitmap)
+        }.addOnFailureListener {
+            if(progressDialog.isShowing)
+                progressDialog.dismiss()
+            Toast.makeText(activity, "Failed to get image from Cloud Storage", Toast.LENGTH_LONG).show()
+        }
+        byttAvatarIMG.setImageURI(imageUri)
         btn_lagre_brukernavn.setOnClickListener {
             val nyBrukerMap = getNyttBrukerMap()
-            //updateBruker(nyBrukerMap)
-            if (VERSION.SDK_INT >= VERSION_CODES.M){
-                if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_DENIED){
-                    //permission denied
-                    val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE);
-                    //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE);
-                }
-                else{
-                    //permission already granted
-                    updateAvatarBilde();
-                }
-            }
-            else{
-                //system OS is < Marshmallow
-               updateAvatarBilde();
-            }
-            updateAvatarBilde()
+            updateBruker(nyBrukerMap)
+
             tv_rediger_brukernavn.text = et_rediger_brukernavn.text
+
+            val progressDialog = ProgressDialog(activity)
+            progressDialog.setMessage("Uploading file...")
+            progressDialog.setCancelable(false)
+            progressDialog.show()
+
+
+            val bilde1 = "bilde1"
+            val storage = FirebaseStorage.getInstance().getReference("avatarbilder/$bilde1")
+            redigerBrukerBinding.IWEndreAvatarBilde.setImageURI(null)
+            storage.putFile(imageUri!!)
+                .addOnSuccessListener {
+                    //fjerner forrige img uri cache
+                    redigerBrukerBinding.IWEndreAvatarBilde.setImageURI(null)
+                    Toast.makeText(activity, "Successfully uploaded to cloud storage", Toast.LENGTH_LONG).show()
+                    if(progressDialog.isShowing) progressDialog.dismiss()
+                }.addOnFailureListener{
+                    Toast.makeText(activity, "Failed uploaded to cloud storage", Toast.LENGTH_LONG).show()
+                    if(progressDialog.isShowing) progressDialog.dismiss()
+                }
         }
         return redigerBrukerBinding.root
     }
@@ -103,8 +143,10 @@ class RedigerBrukerFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            byttAvatarIMG.setImageURI(data?.data)
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            imageUri = data?.data
+            byttAvatarIMG.setImageURI(imageUri)
         }
     }
 
@@ -169,6 +211,6 @@ class RedigerBrukerFragment : Fragment() {
     private fun updateAvatarBilde(){
         val bildeGallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         bildeGallery.type = "image/*"
-        startActivity(bildeGallery)
+        startActivityForResult(bildeGallery, IMAGE_PICK_CODE)
     }
 }
