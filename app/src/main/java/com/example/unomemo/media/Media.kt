@@ -8,7 +8,7 @@ import com.example.unomemo.spilldata.Vanskelighetsgrad
 
 class Media(private val gameSize : Vanskelighetsgrad , image :List<String>? ) {
 
-    var cardINFO:List<KortInfo>
+    var cardINFO:List<KortInfo> ?  =  null
 
     private var index :Int? =  null
 

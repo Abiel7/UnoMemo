@@ -36,6 +36,7 @@ class SpillKort : Fragment() {
 
     private lateinit var media: Media
 
+
     private val db =  FirebaseFirestore.getInstance()
 
     private val auth = FirebaseAuth.getInstance()
@@ -81,24 +82,24 @@ class SpillKort : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-      /*  when(gameSize) {
-            DifLEvel.EASY -> R.id.itemEasy
-            DifLEvel.MEDIUM -> R.id.itemMedium
-            DifLEvel.HARD -> R.id.itemHard
+        when(gameSize) {
+            Vanskelighetsgrad.ENKEL -> R.id.lett
+            Vanskelighetsgrad.MIDDELS -> R.id.medium
+            Vanskelighetsgrad.KRVENDE -> R.id.Vanskelig
         }
 
-        item.setOnMenuItemClickListener {
             gameSize =  when(item.itemId){
-                R.id.itemEasy -> DifLEvel.EASY
-                R.id.itemMedium -> DifLEvel.MEDIUM
+                R.id.lett -> Vanskelighetsgrad.ENKEL
+                R.id.medium -> Vanskelighetsgrad.MIDDELS
 
-                else -> DifLEvel.HARD
+                else -> Vanskelighetsgrad.KRVENDE
             }
-            setupGameAgain()
-            true
-        }
 
-       */
+            imagesURL =  null;
+            setupGameAgain()
+
+
+
 
 
         return  super.onOptionsItemSelected(item)
@@ -109,7 +110,7 @@ class SpillKort : Fragment() {
     media = Media(gameSize,imagesURL)
         recyc.addItemDecoration(DefualtDecorator(15,15))
         gameAdappeter =  SpillBrettAdatper(requireContext(),gameSize,
-            media.cardINFO, object : Click{
+            media.cardINFO!!, object : Click{
                 override fun onCardClicked(pos: Int) {
 
                     updateAdappter(pos)
