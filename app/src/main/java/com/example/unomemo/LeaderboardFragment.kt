@@ -1,18 +1,14 @@
 package com.example.unomemo
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.databinding.FragmentLeaderboardBinding
-import com.example.unomemo.databinding.FragmentSpillKortBinding
 import com.example.unomemo.leaderboard.Leaderboard
 import com.example.unomemo.leaderboard.LeaderboardAdapter
 import com.google.firebase.firestore.*
@@ -52,7 +48,7 @@ class LeaderboardFragment : Fragment() {
         recyclerView.adapter = leaderboardAdapter
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-        //realTimeLeaderboardUpdate()
+
         return binding.root
     }
 

@@ -51,7 +51,7 @@ class AccountFragment : Fragment() {
         brukernavnTextView = brukernavn.findViewById(R.id.tv_brukernavn)
         brukerAvatarIM = brukerAvatar.findViewById(R.id.brukerAvatar)
         val filename = "bilde1"
-        var storage = Firebase.storage.reference.child("avatarbilder/$filename")
+        val storage = Firebase.storage.reference.child("avatarbilder/$filename")
 
         val localfile = File.createTempFile("tempimage", "jpg")
 
@@ -80,9 +80,7 @@ class AccountFragment : Fragment() {
     }
 
     fun getBrukernavn() {
-
         val db = FirebaseFirestore.getInstance()
-
         db.collection("user")
             .get()
             .addOnSuccessListener { result ->

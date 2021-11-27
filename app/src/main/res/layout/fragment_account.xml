@@ -26,8 +26,9 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@string/velkommen_takk_for_at_du_bruker_appen_v_r"
-            android:textSize="15sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.606"
@@ -50,16 +51,17 @@
 
                 <TextView
                     android:id="@+id/tv_brukernavn"
-                    android:layout_width="5dp"
-                    android:layout_height="17dp"
+                    android:layout_width="248dp"
+                    android:layout_height="33dp"
                     android:text=""
                     android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.501"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.734" />
+                    app:layout_constraintVertical_bias="0.79" />
 
                 <androidx.cardview.widget.CardView
 
@@ -78,16 +80,16 @@
 
                         <ImageView
                             android:id="@+id/brukerAvatar"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="152dp"
+                            android:layout_height="152dp"
                             android:contentDescription="bilde av brukeren sin avatar"
                             app:cardCornerRadius="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
+                            app:layout_constraintVertical_bias="1.0"
                             tools:src="@tools:sample/avatars" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
