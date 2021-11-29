@@ -216,8 +216,9 @@ class SpillKort : Fragment() {
 
 
     private fun  searchImages () {
-        imageListSearch = binding.getImages
-        val text =  imageListSearch.text.toString().trim()
+        var searchLayout  =  LayoutInflater.from(requireContext()).inflate(R.layout.searchlayout,null)
+        val editText = searchLayout.findViewById<EditText>(R.id.getImages)
+        val text=  editText.text.toString().trim()
         getImageUrl(text)
     }
 }

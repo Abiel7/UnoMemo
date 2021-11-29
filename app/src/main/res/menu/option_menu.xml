@@ -23,6 +23,12 @@
         android:title="@string/hard"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/search"
+        android:title="@string/s_k"
+        app:showAsAction="never" />
+
+
 
 
 
