@@ -1,9 +1,11 @@
 package com.example.unomemo.spillKort
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -19,21 +21,23 @@ import com.example.unomemo.spilldata.START_FLAGS
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import java.util.*
 
-
+// <https://square.github.io/picasso/
 class SpillKort : Fragment() {
 
     private lateinit var recyc: RecyclerView
     private lateinit var root : ConstraintLayout
     private lateinit var nextBtn: Button
+    lateinit var imageListSearch : EditText
     private var _binding : FragmentSpillKortBinding?=null
     private val binding get()= _binding!!
 
     private lateinit var gameAdappeter :SpillBrettAdatper
 
     private var gameSize : Vanskelighetsgrad = Vanskelighetsgrad.ENKEL
-
+    private var gameName :  String ? =  null
     private lateinit var media: Media
 
 
@@ -58,8 +62,14 @@ class SpillKort : Fragment() {
         recyc =  binding.spillKortRecycler//every  recycler view have to core components one is the adapter  and layoutManager(measures  and positions  item view)
         root =  binding.constraintLayout
         nextBtn =  binding.gVidere
+        imageListSearch =  binding.getImages
 
+        imageListSearch.setOnClickListener {
+            searchImages()
+        }
+        recyc.addItemDecoration(DefualtDecorator(R.dimen.rec_fragment_horizontal_margin,R.dimen.rec_fragment_vertical_margin))
         setupGameAgain()
+
         setHasOptionsMenu(true)
 
 
@@ -88,12 +98,17 @@ class SpillKort : Fragment() {
             Vanskelighetsgrad.KRVENDE -> R.id.Vanskelig
         }
 
-            gameSize =  when(item.itemId){
+        gameSize =  when(item.itemId){
                 R.id.lett -> Vanskelighetsgrad.ENKEL
                 R.id.medium -> Vanskelighetsgrad.MIDDELS
-
                 else -> Vanskelighetsgrad.KRVENDE
-            }
+                }
+
+        when(item.itemId) {
+           R.id.startPåNytt ->{
+               setupGameAgain()
+           }
+        }
 
             imagesURL =  null;
             setupGameAgain()
@@ -108,11 +123,10 @@ class SpillKort : Fragment() {
 
     private fun setupGameAgain() {
     media = Media(gameSize,imagesURL)
-        recyc.addItemDecoration(DefualtDecorator(15,15))
+
         gameAdappeter =  SpillBrettAdatper(requireContext(),gameSize,
             media.cardINFO!!, object : Click{
                 override fun onCardClicked(pos: Int) {
-
                     updateAdappter(pos)
                 }
 
@@ -178,6 +192,32 @@ class SpillKort : Fragment() {
             }
     }
 
+    private fun getImageUrl (imageurl : String) {
+        db.collection("game").document(imageurl).get().addOnSuccessListener { doc ->
+            val imageList = doc.toObject(ImageList :: class.java)
+            if(imageList?.images== null) {
+                // log det du ser etter finns ikke
+            }
+
+            val  cards  =  (imageList?.images?.size?.times(2))
+            gameSize = cards?.let { Vanskelighetsgrad.getVal(it) }!!
+            imagesURL =  imageList.images;
+            gameName = imageurl;
+
+            for (imagesURL in imageList.images) {
+                // git repo  for rask hentign av bilder
+                Picasso.get().load(imageurl).fetch()
+            }
+            setupGameAgain()
+
+        }
+    }
 
 
+
+    private fun  searchImages () {
+        imageListSearch = binding.getImages
+        val text =  imageListSearch.text.toString().trim()
+        getImageUrl(text)
+    }
 }

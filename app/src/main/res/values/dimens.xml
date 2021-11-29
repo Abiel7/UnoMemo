@@ -1,5 +1,8 @@
 <resources>
     <!-- Standard skjerm marginer, etter Android Design rettningslinjer. -->
     <dimen name="fragment_horizontal_margin">20dp</dimen>
+    <dimen name="rec_fragment_horizontal_margin">15</dimen>
     <dimen name="fragment_vertical_margin">20dp</dimen>
+    <dimen name="rec_fragment_vertical_margin">15</dimen>
+
 </resources>

@@ -17,10 +17,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentLastoppBildeFragementBinding
-import com.example.unomemo.lastoppbilde.VelgBildeAdapter
-import com.example.unomemo.spillKort.SpillKort
+
 import com.example.unomemo.spilldata.Vanskelighetsgrad
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -77,7 +75,6 @@ class LastoppBilde : Fragment() {
                     if (result!!.resultCode!= Activity.RESULT_OK || result.data == null){
                         return
                     }
-
                     val chosenUri = result.data!!.data
                     val clipData =  result.data!!.clipData
                     if (clipData != null) {
@@ -132,6 +129,9 @@ class LastoppBilde : Fragment() {
             return  false
         }
         return  true
+    }
+    private fun  uploadToDatabse(){
+        db.collection("game")
     }
 
 
