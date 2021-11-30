@@ -24,13 +24,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
+import java.lang.StringBuilder
 
 
 class AccountFragment : Fragment() {
     lateinit var auth: FirebaseAuth
     lateinit var brukernavnTextView: TextView
     lateinit var brukerAvatarIM: ImageView
-
+    lateinit var emailTextView: TextView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,7 +48,8 @@ class AccountFragment : Fragment() {
         val redigerbruker = accountBinding.container.getViewById(R.id.tv_rediger_bruker)
         val brukernavn = accountBinding.cardViewContainer.getViewById(R.id.tv_brukernavn)
         val brukerAvatar = accountBinding.circleCenter.getViewById(R.id.brukerAvatar)
-        //val brukerAvatar = accountBinding.cardViewContainer.getViewById(R.id.brukerAvatar)
+        val user = auth.currentUser
+        emailTextView = accountBinding.cardViewContainer.getViewById(R.id.tv_email) as TextView
         brukernavnTextView = brukernavn.findViewById(R.id.tv_brukernavn)
         brukerAvatarIM = brukerAvatar.findViewById(R.id.brukerAvatar)
         val filename = "bilde1"
@@ -81,6 +83,8 @@ class AccountFragment : Fragment() {
 
     fun getBrukernavn() {
         val db = FirebaseFirestore.getInstance()
+        val builderEmail = StringBuilder()
+        val builderBrukerNavn = StringBuilder()
         db.collection("user")
             .get()
             .addOnSuccessListener { result ->
@@ -88,7 +92,12 @@ class AccountFragment : Fragment() {
                 if (bruker != null) {
                     for (document in result) {
                         if (bruker.email.toString() == document.data["id"].toString()) {
-                            brukernavnTextView.text = document.data["navn"].toString()
+                            builderBrukerNavn.append(brukernavnTextView.text).append(" ").append(document.data["navn"].toString())
+                            val email = bruker.email.toString()
+                            builderEmail.append(emailTextView.text).append(" ").append(email)
+                            brukernavnTextView.text = builderBrukerNavn
+                            emailTextView.text = builderEmail
+
                         }
                     }
                 }
