@@ -41,7 +41,14 @@ import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/*
+* Author: Kim Andre Undal
+* Denne klassa skal gjør at brukeren kan oppdatere brukernavnet sitt og/eller avatarbildet sitt.
+*
+* Klassa henter ut tre typer Api-er. Det er Firebase Auth, Cloud Firestore og Cloud Storage.
+*
+*
+* */
 class RedigerBrukerFragment : Fragment() {
     val auth = FirebaseAuth.getInstance()
     private var imageUri: Uri? = null
@@ -80,6 +87,7 @@ class RedigerBrukerFragment : Fragment() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
+        //Dette er for å vise bildet som brukeren har valgt
         storage.getFile(localfile).addOnSuccessListener {
             if(progressDialog.isShowing)
                 progressDialog.dismiss()
@@ -106,6 +114,9 @@ class RedigerBrukerFragment : Fragment() {
             val bilde1 = "bilde1"
             val storage = FirebaseStorage.getInstance().getReference("avatarbilder/$bilde1")
             redigerBrukerBinding.IWEndreAvatarBilde.setImageURI(null)
+
+            //Dette er biten for å putte eit bilde i Cloud Storage
+            //Kilde for metoden: https://www.youtube.com/watch?v=GmpD2DqQYVk&ab_channel=Foxandroid
             storage.putFile(imageUri!!)
                 .addOnSuccessListener {
                     //fjerner forrige img uri cache
@@ -120,6 +131,7 @@ class RedigerBrukerFragment : Fragment() {
         return redigerBrukerBinding.root
     }
 
+    //Koder for ulike handlinger
     companion object{
         private const val IMAGE_PICK_CODE = 1000
         private const val PERMISSION_CODE = 1000
@@ -150,6 +162,7 @@ class RedigerBrukerFragment : Fragment() {
         }
     }
 
+    //Denne metoden er for å hente ut riktig bruker som skal bli oppdatert
     private fun getNyttBrukerMap(): Map<String, Any> {
         val navn = et_rediger_brukernavn.text.toString()
         val map = mutableMapOf<String, Any>()
@@ -161,7 +174,9 @@ class RedigerBrukerFragment : Fragment() {
                 var bruker = auth.currentUser
                 if (bruker != null) {
                     for (document in result) {
+                        //Sjekker id'en i databasen som er emailen, opp mot iden som er registrert på brukeren
                         if (bruker.email.toString() == document.data["id"].toString()) {
+                            //Er det ein match går den inn i map som id.
                             id = document.data["id"].toString()
                             map["id"] = id
                         }
@@ -176,9 +191,14 @@ class RedigerBrukerFragment : Fragment() {
         return map
     }
 
+    //Dette er metoden for å oppdatere brukeren
+    //Den bruker coroutines for å gjøre det lettere for hovedtråden
+    //Kilde for metoden: https://github.com/philipplackner/FirebaseFirestore/blob/Updating-Data/app/src/main/java/com/androiddevs/firebasefirestore/MainActivity.kt
     private fun updateBruker(nyBrukerMap: Map<String, Any>) =
         CoroutineScope(Dispatchers.IO).launch {
+            //Objektet til brukeren
             val bruker = auth.currentUser
+            //variabelen som inneholder brukeren sitt dokument i Cloud Firestore
             val brukerQuery = brukerDocRef
                 .whereEqualTo("id", bruker?.email.toString())
                 .get()
@@ -186,6 +206,9 @@ class RedigerBrukerFragment : Fragment() {
             if (brukerQuery.documents.isNotEmpty()) {
                 for (doc in brukerQuery) {
                     try {
+                        //Dette oppdaterer brukeren sitt brukernavn. For å unngå at dokumentet blir overskrivet
+                        //bruker eg SetOptions.merge(). Da blir bare verdien som skal bli oppdatert forandra
+                        //og ikke heile dokumentet.
                         brukerDocRef.document(auth.uid.toString()).set(
                             nyBrukerMap,
                             SetOptions.merge()
@@ -207,7 +230,7 @@ class RedigerBrukerFragment : Fragment() {
                 }
             }
         }
-
+    //Dette opner opp galleriet på mobilen og brukeren vil sjå alle bildene sine der.
     private fun updateAvatarBilde(){
         val bildeGallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         bildeGallery.type = "image/*"

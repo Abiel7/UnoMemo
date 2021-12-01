@@ -17,10 +17,14 @@ import com.example.unomemo.kategori.KategoriListeAdapter
 
 
 /**
- * 
+ * Author: Kim Andre Undal
+ *
+ * Denne klassa skal vise spillene i mobilapplikasjonen.
+
  * */
 class GamemenuFragment() : Fragment() {
 
+    //Kim Andre Undal, har jobba med å vise spillene i et recyclerview
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +37,10 @@ class GamemenuFragment() : Fragment() {
                 container,
                 false
             )
+        //Grunnen til at det heiter kategoriRecyclerView var på grunn av et scope creep.
+        //Planen var først at dette skulle vise kategoriene, til dei ulike spillene.
+        //Men, Abiel sa det skal bli til et gamemenufragment,
+        //som skal holde på alle spillene som brukerene lager.
         val recyclerView: RecyclerView = binding.kategoriRecyclerView
         val listAdapter = KategoriListeAdapter()
 

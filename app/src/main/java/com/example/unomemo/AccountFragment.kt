@@ -26,7 +26,15 @@ import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.lang.StringBuilder
 
-
+/*
+* Author: Kim Andre Undal
+* Denne klassa skal vise fram brukeren sin informasjon.
+* Det er brukernavn, email som er registrert og et avatarbilde
+*
+* Klassa henter ut tre typer Api-er. Det er Firebase Auth, Cloud Firestore og Cloud Storage.
+*
+*
+* */
 class AccountFragment : Fragment() {
     lateinit var auth: FirebaseAuth
     lateinit var brukernavnTextView: TextView
@@ -63,7 +71,7 @@ class AccountFragment : Fragment() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
-        //hente fil fra storage
+        //henter bilde-fila fra storage
         storage.getFile(localfile).addOnSuccessListener {
             if(progressDialog.isShowing)
                 progressDialog.dismiss()
@@ -81,6 +89,9 @@ class AccountFragment : Fragment() {
         return accountBinding.root
     }
 
+    //Henter brukernavn fra CloudFirestore.
+    //Henter ut emailen som brukeren registrerte seg med fra Firebase Auth
+    //Kilde for metoden: https://github.com/philipplackner/FirebaseFirestore/blob/Updating-Data/app/src/main/java/com/androiddevs/firebasefirestore/MainActivity.kt
     fun getBrukernavn() {
         val db = FirebaseFirestore.getInstance()
         val builderEmail = StringBuilder()
@@ -97,7 +108,6 @@ class AccountFragment : Fragment() {
                             builderEmail.append(emailTextView.text).append(" ").append(email)
                             brukernavnTextView.text = builderBrukerNavn
                             emailTextView.text = builderEmail
-
                         }
                     }
                 }
