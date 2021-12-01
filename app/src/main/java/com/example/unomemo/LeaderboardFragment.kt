@@ -25,7 +25,8 @@ import com.google.firebase.ktx.Firebase
 *
 * */
 class LeaderboardFragment : Fragment() {
-
+    //Dette er api-et for å hente ut brukerene i leaderboard collectionet i Cloud Firestore.
+    //Dei vil bli sortert etter poengsum, med minste først.
     private val lbDocRef =
         Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.ASCENDING)
     private lateinit var leaderboardListe: ArrayList<Leaderboard>
@@ -51,7 +52,7 @@ class LeaderboardFragment : Fragment() {
 
         leaderboardListe = arrayListOf()
         //Bruker et recyclerview for å vise brukerene som har spilt.
-        
+
         val recyclerView: RecyclerView = binding.leaderboardRecyclerview
         leaderboardAdapter = LeaderboardAdapter(leaderboardListe)
         recyclerView.adapter = leaderboardAdapter
