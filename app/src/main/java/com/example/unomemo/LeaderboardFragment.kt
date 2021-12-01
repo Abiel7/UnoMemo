@@ -16,7 +16,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
-
+/*
+* Author Kim Andre Undal
+*
+* Målet met denne klassa er å vise kor masse poeng brukeren klarte å få når han spilte spillet.
+* I tillegg vil man sjå andre sin poengsum.
+* Denne klassa bruker et api, som er Cloud Firestore.
+*
+* */
 class LeaderboardFragment : Fragment() {
 
     private val lbDocRef =
@@ -43,6 +50,8 @@ class LeaderboardFragment : Fragment() {
 
 
         leaderboardListe = arrayListOf()
+        //Bruker et recyclerview for å vise brukerene som har spilt.
+        
         val recyclerView: RecyclerView = binding.leaderboardRecyclerview
         leaderboardAdapter = LeaderboardAdapter(leaderboardListe)
         recyclerView.adapter = leaderboardAdapter
@@ -52,6 +61,8 @@ class LeaderboardFragment : Fragment() {
         return binding.root
     }
 
+    //Denne metoden oppdaterer leaderboardet i realtime, for kvar gang ein bruker er ferdig med å spille spillet.
+    //Kilde til metoden: https://github.com/philipplackner/FirebaseFirestore/blob/Updating-Data/app/src/main/java/com/androiddevs/firebasefirestore/MainActivity.kt
     private fun realTimeLeaderboardUpdate() {
         db = FirebaseFirestore.getInstance()
         lbDocRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -59,8 +70,6 @@ class LeaderboardFragment : Fragment() {
                 Toast.makeText(this.context, it.message, Toast.LENGTH_LONG).show()
                 return@addSnapshotListener
             }
-
-
             querySnapshot?.let {
                 for (doc in it) {
                     val leaderboard = doc.toObject<Leaderboard>()
