@@ -69,7 +69,7 @@ class LastoppBilde : Fragment() {
         rvChoseImages =  binding.rvLastopp
         gameName =  binding.giSpillNavn//view.findViewById(R.id.giSpillNavn)
         btnSave =  binding.btnLagre
-        numberOfImages = SpillKort().sumMuchOnGame()
+                // numberOfImages = sumMuchOnGame()
         activityResultLauncher =  registerForActivityResult(
             ActivityResultContracts.
             StartActivityForResult(), object  : ActivityResultCallback<ActivityResult> {

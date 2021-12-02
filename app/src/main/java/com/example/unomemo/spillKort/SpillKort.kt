@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.spilldata.Vanskelighetsgrad
 import com.example.unomemo.R
 import com.example.unomemo.databinding.FragmentSpillKortBinding
+import com.example.unomemo.media.Media
 import com.example.unomemo.spilldata.KortInfo
 import com.example.unomemo.spilldata.START_FLAGS
 import com.google.android.material.snackbar.Snackbar
@@ -33,18 +34,14 @@ class SpillKort : Fragment() {
 
     private var gameSize : Vanskelighetsgrad = Vanskelighetsgrad.ENKEL
 
-    private var cardINFO:List<KortInfo>? =null
+    private lateinit var media: Media
 
-
-    private var index :Int? =  null
-
-    private var matches =  0
-
-    private var moves = 0
 
     private val db =  FirebaseFirestore.getInstance()
 
     private val auth = FirebaseAuth.getInstance()
+
+    private var imagesURL : List<String>? ? = null;
 
     companion object{
         private const val  TAG  = "SpillKort"
@@ -61,9 +58,7 @@ class SpillKort : Fragment() {
         recyc =  binding.spillKortRecycler//every  recycler view have to core components one is the adapter  and layoutManager(measures  and positions  item view)
         root =  binding.constraintLayout
         nextBtn =  binding.gVidere
-        val flags: List<Int> = START_FLAGS.shuffled().take(sumMuchOnGame())
-        val shuffledItems :List<Int> = (flags + flags).shuffled()
-        cardINFO = shuffledItems.map { KortInfo(it.hashCode()) }
+
         setupGameAgain()
         setHasOptionsMenu(true)
 
@@ -87,24 +82,24 @@ class SpillKort : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-      /*  when(gameSize) {
-            DifLEvel.EASY -> R.id.itemEasy
-            DifLEvel.MEDIUM -> R.id.itemMedium
-            DifLEvel.HARD -> R.id.itemHard
+        when(gameSize) {
+            Vanskelighetsgrad.ENKEL -> R.id.lett
+            Vanskelighetsgrad.MIDDELS -> R.id.medium
+            Vanskelighetsgrad.KRVENDE -> R.id.Vanskelig
         }
 
-        item.setOnMenuItemClickListener {
             gameSize =  when(item.itemId){
-                R.id.itemEasy -> DifLEvel.EASY
-                R.id.itemMedium -> DifLEvel.MEDIUM
+                R.id.lett -> Vanskelighetsgrad.ENKEL
+                R.id.medium -> Vanskelighetsgrad.MIDDELS
 
-                else -> DifLEvel.HARD
+                else -> Vanskelighetsgrad.KRVENDE
             }
-            setupGameAgain()
-            true
-        }
 
-       */
+            imagesURL =  null;
+            setupGameAgain()
+
+
+
 
 
         return  super.onOptionsItemSelected(item)
@@ -112,12 +107,12 @@ class SpillKort : Fragment() {
     }
 
     private fun setupGameAgain() {
-
+    media = Media(gameSize,imagesURL)
         recyc.addItemDecoration(DefualtDecorator(15,15))
         gameAdappeter =  SpillBrettAdatper(requireContext(),gameSize,
-            cardINFO!!, object : Click{
+            media.cardINFO!!, object : Click{
                 override fun onCardClicked(pos: Int) {
-                    Log.i(TAG," on click ${pos}, ${getMoves()}")
+
                     updateAdappter(pos)
                 }
 
@@ -129,16 +124,6 @@ class SpillKort : Fragment() {
     }
 
 
-    /**
-     *  finner ut hvor mange par det skal være basert på vankelighets grad brukeren har valgt
-     *  så 8 kort 4 svar
-    12 kort  6  svar
-    16 kort 8 svar
-     */
-    fun sumMuchOnGame() : Int{
-        return  gameSize.antallkort / 2
-
-    }
 
 
     /**
@@ -147,16 +132,16 @@ class SpillKort : Fragment() {
     private fun updateAdappter(pos:Int){
 
 
-        if (matchPares()) {
+        if (media.matchPares()) {
             return
         }
-        if (isUpCards(pos)){
+        if (media.isUpCards(pos)){
             return
         }
-        if(flipCards(pos)){
+        if(media.flipCards(pos)){
             nextBtn.setOnClickListener {
                 //Snackbar.make(root,"Bli ferdig med Spillet",Snackbar.LENGTH_SHORT).show()
-                if(!matchPares()){
+                if(!media.matchPares()){
                     Snackbar.make(root,"Bli ferdig med Spillet",Snackbar.LENGTH_SHORT).show()
                 }
                 writeMovesToDB()
@@ -171,95 +156,16 @@ class SpillKort : Fragment() {
     }
 
 
-    /**
-     * sjekker hvor mange kort som er flippet over
-     * caser vi må sjekke
-     * case 1 om 0 kort er flippet, flip kortene tilbake til start bildet
-     * case 2 om 1 kort er flippet , flip kort og sjekk om den matcher med den neste kort som blir flippet
-     * case 3 om 2 kort er flipet flip kortene tilbake til start bildet
-     *
-     */
-    private fun flipCards(pos: Int):Boolean{
-        this.moves++
-        val kort  = cardINFO?.get(pos)
-        var matchFound = false
-        if(index == null){
-            // case1 og case2
-            resetCard()
-            index = pos
-
-            print(" index in first if statement  $index")
-
-        } else {
-            matchFound = check(index!!,pos)
-
-            index=null
-            print( "Else statment $index")
-        }
-        kort!!.isUp = !kort.isUp
-        return matchFound
-    }
-
-    /**
-     * metode som sjekker om to kort er likt basert på id
-     */
-    private fun check(pos1:Int,pos2:Int) :Boolean {
-        val idIfno1  =  cardINFO!![pos1].id
-        val idIfno2 = cardINFO!![pos2].id
-
-        if(cardINFO!![pos1].id != cardINFO!![pos2].id){
-            Log.i(TAG, "$idIfno1 $idIfno2")
-            return false
-        }
-        cardINFO!![pos1].isaMatch =  true
-        cardINFO!![pos2].isaMatch =  true
-        matches++
-        print( "this is antal kort $matches" )
-        return true
-
-    }
-
-    /**
-     * set kort tilbake til orginal bilde,
-     *
-     */
-    private fun resetCard() {
-        for (i in cardINFO!! ){
-            if(!i.isaMatch){
-                i.isUp= false
-            }
-        }
-    }
-
-    /**
-     * hvor mange kort  er oppe
-     */
-    fun matchPares( ):Boolean{
-        return matches == sumMuchOnGame()
-    }
-
-    /**
-     * om en kort er flipped eller ikke
-     */
-    fun isUpCards(pos: Int): Boolean {
-        return cardINFO?.get(pos)?.isUp == true
-    }
 
 
-
-
-
-    private fun getMoves():Int{
-        return this.moves.times(2)
-    }
 
     fun writeMovesToDB(){
 
         val dbCollection =  db.collection("LeaderBoard").document()
-       var bruker = auth.currentUser
+        val bruker = auth.currentUser
         val data =  hashMapOf(
             "navn" to bruker?.email.toString(),
-            "poengsum" to getMoves(),
+            "poengsum" to media.getAmountMoves(),
             "uid" to "${UUID.randomUUID()}"
         )
 
@@ -273,24 +179,5 @@ class SpillKort : Fragment() {
     }
 
 
-    /*
-    fun getBrukernavn(): String {
-        var navn = ""
-        val db = FirebaseFirestore.getInstance()
-        db.collection("user")
-            .get()
-            .addOnSuccessListener { result ->
-                var bruker = auth.currentUser
-                if (bruker != null) {
-                    for (document in result) {
-                        if (bruker.email.toString() == document.data["id"].toString()) {
-                            navn = document.data["navn"].toString()
-                        }
-                    }
-                }
-            }
-        return navn
-    }
-*/
 
 }
