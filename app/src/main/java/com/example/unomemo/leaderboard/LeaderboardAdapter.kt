@@ -29,7 +29,7 @@ class LeaderboardAdapter(private val leaderboardListe: ArrayList<Leaderboard>) :
     }
 
     override fun onBindViewHolder(holder: LeaderBoardViewHolder, position: Int) {
-
+        //Setter informasjonen fra arraylista på Textview-ene
         val leaderboard: Leaderboard = leaderboardListe[position]
         holder.spillernavn.text = leaderboard.navn
        holder.poengsum.text = leaderboard.poengsum.toString()
@@ -40,6 +40,7 @@ class LeaderboardAdapter(private val leaderboardListe: ArrayList<Leaderboard>) :
 
     }
 
+    //Denne metoden setter gullfarge på plassering, navn og poengsum til personen som er på første plass
     fun setFirstPlace(holder: LeaderBoardViewHolder){
         holder.spillernavn.setTextColor(Color.parseColor("#FFD700"))
         holder.plassering.setTextColor(Color.parseColor("#FFD700"))

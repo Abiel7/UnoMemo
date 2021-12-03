@@ -29,7 +29,6 @@
         <item>Medium 12</item>
         <item>Hard 16</item>
     </string-array>
-
     <string name="extended_fab_content_desc" translatable="false">floting button skip account</string>
     <string name="leaderboard">leaderboard</string>
     <string name="custom_game">custom game</string>
@@ -39,8 +38,14 @@
     <string name="account">account</string>
     <string name="animation_logo" translatable="false">logo for logo animation</string>
     <string name="skriv_nytt_brukernavn_her">skriv nytt brukernavn her</string>
-    <string name="rediger_bruker">rediger_bruker</string>
+    <string name="rediger_bruker">Rediger bruker</string>
     <string name="velkommen_takk_for_at_du_bruker_appen_v_r">Velkommen, takk for at du bruker appen vår</string>
     <string name="lagre">lagre</string>
     <string name="s_k">Søk</string>
+    <string name="bilde_av_brukeren_sin_avatar">bilde av brukeren sin avatar</string>
+    <string name="lagre">Lagre</string>
+    <string name="endre_avatar">Endre avatar</string>
+    <string name="brukernavn">Brukernavn:</string>
+    <string name="email">Email:</string>
+
 </resources>

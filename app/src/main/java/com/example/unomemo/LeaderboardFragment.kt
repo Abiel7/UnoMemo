@@ -1,18 +1,14 @@
 package com.example.unomemo
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unomemo.databinding.FragmentLeaderboardBinding
-import com.example.unomemo.databinding.FragmentSpillKortBinding
 import com.example.unomemo.leaderboard.Leaderboard
 import com.example.unomemo.leaderboard.LeaderboardAdapter
 import com.google.firebase.firestore.*
@@ -20,9 +16,17 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
-
+/*
+* Author Kim Andre Undal
+*
+* Målet met denne klassa er å vise kor masse poeng brukeren klarte å få når han spilte spillet.
+* I tillegg vil man sjå andre sin poengsum.
+* Denne klassa bruker et api, som er Cloud Firestore.
+*
+* */
 class LeaderboardFragment : Fragment() {
-
+    //Dette er api-et for å hente ut brukerene i leaderboard collectionet i Cloud Firestore.
+    //Dei vil bli sortert etter poengsum, med minste først.
     private val lbDocRef =
         Firebase.firestore.collection("LeaderBoard").orderBy("poengsum", Query.Direction.ASCENDING)
     private lateinit var leaderboardListe: ArrayList<Leaderboard>
@@ -47,15 +51,19 @@ class LeaderboardFragment : Fragment() {
 
 
         leaderboardListe = arrayListOf()
+        //Bruker et recyclerview for å vise brukerene som har spilt.
+
         val recyclerView: RecyclerView = binding.leaderboardRecyclerview
         leaderboardAdapter = LeaderboardAdapter(leaderboardListe)
         recyclerView.adapter = leaderboardAdapter
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-        //realTimeLeaderboardUpdate()
+
         return binding.root
     }
 
+    //Denne metoden oppdaterer leaderboardet i realtime, for kvar gang ein bruker er ferdig med å spille spillet.
+    //Kilde til metoden: https://github.com/philipplackner/FirebaseFirestore/blob/Updating-Data/app/src/main/java/com/androiddevs/firebasefirestore/MainActivity.kt
     private fun realTimeLeaderboardUpdate() {
         db = FirebaseFirestore.getInstance()
         lbDocRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -63,8 +71,6 @@ class LeaderboardFragment : Fragment() {
                 Toast.makeText(this.context, it.message, Toast.LENGTH_LONG).show()
                 return@addSnapshotListener
             }
-
-
             querySnapshot?.let {
                 for (doc in it) {
                     val leaderboard = doc.toObject<Leaderboard>()
