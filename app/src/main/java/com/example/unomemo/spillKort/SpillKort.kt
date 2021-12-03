@@ -52,6 +52,8 @@ class SpillKort : Fragment() {
     }
 
     interface Click{
+        // https://stackoverflow.com/questions/15444375/how-to-create-interface-between-fragment-and-adapter
+        // https://www.youtube.com/watch?v=_rPY0s7yJ1g
         fun onCardClicked(pos :Int)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

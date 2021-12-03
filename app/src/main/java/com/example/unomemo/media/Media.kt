@@ -19,6 +19,7 @@ class Media(private val gameSize : Vanskelighetsgrad , image :List<String>? ) {
         const val TAG = "Media"
     }
 
+    //  https://www.youtube.com/watch?v=BGvjScKcW1s&t=559s noen av gamelogic
     init {
         // get picture from
         if(image == null) {
@@ -35,6 +36,9 @@ class Media(private val gameSize : Vanskelighetsgrad , image :List<String>? ) {
         }
 
     }
+ 
+    
+
 
     fun flipCards(pos: Int):Boolean{
         this.moves++
