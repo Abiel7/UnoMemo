@@ -151,7 +151,6 @@ class LastoppBilde : Fragment() {
     }
 
 
-
     private  fun  showButton() :Boolean {
         if(chosenImages.size != numberOfImages){
             return false
@@ -161,6 +160,7 @@ class LastoppBilde : Fragment() {
         }
         return  true
     }
+
 
 
 
