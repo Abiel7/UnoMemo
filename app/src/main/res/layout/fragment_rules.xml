@@ -6,13 +6,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rules_container"
         android:layout_width="match_parent"
+        android:background="@color/Home4"
         android:layout_height="match_parent">
         <!--TODO make about fragment, about the application-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome, this is the rules for this game"
+            android:textColor="@color/white"
+            android:text="Velkommen, dette er reglene for dette spillet"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -24,12 +28,16 @@
             android:id="@+id/rules_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
+            android:padding="10dp"
             android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.554" />
+            app:layout_constraintVertical_bias="0.44" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

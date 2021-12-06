@@ -35,7 +35,7 @@
                 android:layout_height="75dp"
                 android:gravity="center"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textSize="25sp"
+                android:textSize="18sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.268"

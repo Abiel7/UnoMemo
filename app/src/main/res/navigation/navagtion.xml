@@ -91,5 +91,10 @@
             android:id="@+id/action_redigerBrukerFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.unomemo.MainActivity"
+        android:label="activity_last_opp"
+        tools:layout="@layout/activity_last_opp" />
 
 </navigation>

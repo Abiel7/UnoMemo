@@ -77,42 +77,43 @@ class RedigerBrukerFragment : Fragment() {
         byttAvatarTV.setOnClickListener{
             updateAvatarBilde()
         }
+        //lager filnavnet til bildet som vil bli navnet i Cloud Storage
         val filename = "bilde1"
         var storage = Firebase.storage.reference.child("avatarbilder/$filename")
-
         val localfile = File.createTempFile("tempimage", "jpg")
-
         val progressDialog = ProgressDialog(activity)
         progressDialog.setMessage("Fetching image...")
         progressDialog.setCancelable(false)
         progressDialog.show()
 
         //Dette er for å vise bildet som brukeren har valgt
+        //Kilde for metoden: https://www.youtube.com/watch?v=A2-v2VFwLY0&ab_channel=Foxandroid
         storage.getFile(localfile).addOnSuccessListener {
             if(progressDialog.isShowing)
                 progressDialog.dismiss()
+            //gjør om filen til bitmaps
             val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            //setter bits til bilde
             redigerBrukerBinding.IWEndreAvatarBilde.setImageBitmap(bitmap)
         }.addOnFailureListener {
             if(progressDialog.isShowing)
                 progressDialog.dismiss()
             Toast.makeText(activity, "Failed to get image from Cloud Storage", Toast.LENGTH_LONG).show()
         }
+
         byttAvatarIMG.setImageURI(imageUri)
         btn_lagre_brukernavn.setOnClickListener {
             val nyBrukerMap = getNyttBrukerMap()
             updateBruker(nyBrukerMap)
-
             tv_rediger_brukernavn.text = et_rediger_brukernavn.text
-
             val progressDialog = ProgressDialog(activity)
             progressDialog.setMessage("Uploading file...")
             progressDialog.setCancelable(false)
             progressDialog.show()
-
-
+            //denne biten skal finne bildet som ligger i Cloud Storage
             val bilde1 = "bilde1"
             val storage = FirebaseStorage.getInstance().getReference("avatarbilder/$bilde1")
+            //Tømmer cachen til bildet og gjør klart for å sette på bildet fra Cloud Storage
             redigerBrukerBinding.IWEndreAvatarBilde.setImageURI(null)
 
             //Dette er biten for å putte eit bilde i Cloud Storage

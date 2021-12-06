@@ -2,6 +2,7 @@ package com.example.unomemo.spilldata
 
 import com.example.unomemo.R
 
+const val  EXTRA =  "EXTRA"
 val  START_FLAGS =  listOf(
     R.drawable.ic_ar,
     R.drawable.ic_bh,

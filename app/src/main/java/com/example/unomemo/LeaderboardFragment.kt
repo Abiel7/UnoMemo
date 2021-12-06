@@ -48,11 +48,9 @@ class LeaderboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentLeaderboardBinding.inflate(inflater,container,false)
-
-
         leaderboardListe = arrayListOf()
-        //Bruker et recyclerview for å vise brukerene som har spilt.
 
+        //Bruker et recyclerview for å vise brukerene som har spilt.
         val recyclerView: RecyclerView = binding.leaderboardRecyclerview
         leaderboardAdapter = LeaderboardAdapter(leaderboardListe)
         recyclerView.adapter = leaderboardAdapter
@@ -72,8 +70,10 @@ class LeaderboardFragment : Fragment() {
                 return@addSnapshotListener
             }
             querySnapshot?.let {
+                //Bruker for loop for å hente ut dokumentene
                 for (doc in it) {
                     val leaderboard = doc.toObject<Leaderboard>()
+                    //lagrer dokumentene i ei liste
                     leaderboardListe.add(Leaderboard(
                         leaderboard.uid,
                         leaderboard.navn,

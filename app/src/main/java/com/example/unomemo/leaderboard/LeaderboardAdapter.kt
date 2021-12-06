@@ -1,4 +1,5 @@
 package com.example.unomemo.leaderboard
+
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -32,19 +33,22 @@ class LeaderboardAdapter(private val leaderboardListe: ArrayList<Leaderboard>) :
         //Setter informasjonen fra arraylista på Textview-ene
         val leaderboard: Leaderboard = leaderboardListe[position]
         holder.spillernavn.text = leaderboard.navn
-       holder.poengsum.text = leaderboard.poengsum.toString()
+        holder.poengsum.text = leaderboard.poengsum.toString()
+        //sjekker om posisjonen er 0, da vil første plass få gull tekst istadenfor vanlig farge
         if (position == 0) {
             setFirstPlace(holder)
         }
+        //Bruker string formatering for sette på posisjonen på kortene,
+        //uten å oppdatere eller lage ekstra fields i databasen
         holder.plassering.text = String.format("%d", position + 1)
 
     }
 
     //Denne metoden setter gullfarge på plassering, navn og poengsum til personen som er på første plass
-    fun setFirstPlace(holder: LeaderBoardViewHolder){
-        holder.spillernavn.setTextColor(Color.parseColor("#FFD700"))
-        holder.plassering.setTextColor(Color.parseColor("#FFD700"))
-        holder.poengsum.setTextColor(Color.parseColor("#FFD700"))
+    fun setFirstPlace(holder: LeaderBoardViewHolder) {
+        holder.spillernavn.setTextColor(Color.parseColor("#FFB302"))
+        holder.plassering.setTextColor(Color.parseColor("#FFB302"))
+        holder.poengsum.setTextColor(Color.parseColor("#FFB302"))
     }
 
     override fun getItemCount(): Int {

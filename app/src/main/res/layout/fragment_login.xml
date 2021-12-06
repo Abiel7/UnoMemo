@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Home4"
     android:paddingLeft="@dimen/fragment_horizontal_margin"
     android:paddingTop="@dimen/fragment_vertical_margin"
     android:paddingRight="@dimen/fragment_horizontal_margin"
@@ -17,7 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -28,6 +30,7 @@
             android:layout_margin="16dp"
             android:contentDescription="@string/extended_fab_content_desc"
             android:text="@string/action_skip_account"
+
             app:icon="@drawable/ic_baseline_chevron_right_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +45,9 @@
             android:layout_height="48dp"
             android:layout_marginTop="252dp"
             android:hint="@string/prompt_email"
+            android:textColor="@color/white"
             android:inputType="textEmailAddress"
+            android:textColorHint="@color/white"
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
@@ -54,7 +59,9 @@
             android:layout_width="230dp"
             android:layout_height="48dp"
             android:layout_marginTop="60dp"
+            android:textColor="@color/white"
             android:hint="@string/prompt_password"
+            android:textColorHint="@color/white"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
             android:inputType="textPassword"

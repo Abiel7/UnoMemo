@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment
 import com.example.unomemo.databinding.FragmentRedigerBrukerBinding
 import com.example.unomemo.databinding.FragmentRulesBinding
 
+/*
+* Author: Kim Andre Undal
+* Dette fragmentet skal vise reglene til spillet
+* */
 class RulesFragment: Fragment(){
     var rules: String = ""
    lateinit var textView: TextView
@@ -32,11 +36,10 @@ class RulesFragment: Fragment(){
 
     @JvmName("getRules1")
     private fun getRules(): String {
-        return "To start the game click on one of the images in the game menu. \n" +
-                "The goal when playing is to find the pair of each card. \n" +
-                "When every pair has been releaved click the button at the bottom, and you will see the leaderbaord. \n" +
-                "The score is based on how few cards you had to turn to find each matching pair. \n" +
-                "\n" +
-                "Good luck!"
+        return "For å starte spillet klikk på et av bildene i spillmenyen.\n" +
+                "Målet med spillet er å finne parene til hvert kort.\n" +
+                "Når hvert par har blitt funnet klikk på knappen i bunn av skjermen, og du vil se leaderboardet. \n" +
+                "Poengsummen er basert på hvor få ganger du måtte snu kortene for å finne det matchende paret. \n" +
+                "\nLykke til!"
     }
 }
