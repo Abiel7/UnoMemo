@@ -20,11 +20,13 @@ import com.example.unomemo.kategori.KategoriListeAdapter
  * Author: Kim Andre Undal
  *
  * Denne klassa skal vise spillene i mobilapplikasjonen.
+ * Lager et recyclerview som skal holde på spillene
+ * Layouten for bildene er et gridview som har span count på 2.
 
  * */
 class GamemenuFragment() : Fragment() {
 
-    //Kim Andre Undal, har jobba med å vise spillene i et recyclerview
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +52,7 @@ class GamemenuFragment() : Fragment() {
         return binding.root
     }
 
-
+    //alt fra dette har Kim Andre ikkje laget. Fyren som forlot gruppa laget alt fra her og nedover.
     override fun onAttach(context: Context) {
         //TODO check for login
         super.onAttach(context)
@@ -70,6 +72,7 @@ class GamemenuFragment() : Fragment() {
             "KategoryFragment:onAttach; context.getSharedPrefrense().all['splashScreenPlayed']",
             "value: $value"
         )
+
     }
 
     override fun onResume() {

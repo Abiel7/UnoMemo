@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LastOppBilde.LastoppBilde">
+    tools:context=".LastOppBilde.LastoppBilde"
+    android:background="@color/Home4">
 
 
     <Button
@@ -15,7 +16,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:enabled="false"
+        android:enabled="true"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +30,8 @@
         android:layout_marginTop="24dp"
         android:digits="abcdefghijklmnopqrstuvwxyzæøå"
         android:ems="10"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:hint="@string/name_game"
         android:inputType="text"
         android:maxLines="1"

@@ -1,4 +1,4 @@
-package com.example.unomemo.lastoppbilde
+package com.example.unomemo.LastOppBilde
 
 import android.content.Context
 import android.net.Uri
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.unomemo.lastoppbilde.LastoppBilde
+
 import com.example.unomemo.R
 import com.example.unomemo.spilldata.Vanskelighetsgrad
 
@@ -24,7 +24,11 @@ class VelgBildeAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        if (position < image.size) {
+            holder.bind(image[position])
+        } else {
+            holder.bind()
+        }
     }
 
     override fun getItemCount()=dificultyLevel.getHoyde()

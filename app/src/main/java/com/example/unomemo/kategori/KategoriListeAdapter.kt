@@ -35,6 +35,7 @@ class KategoriListeAdapter(): RecyclerView.Adapter<KategoriListeAdapter.ViewHold
         private val katnavn: TextView = view.findViewById(R.id.textView)
         private val katbilde: ImageButton = view.findViewById(R.id.imageButton)
 
+        //binder informasjonen i KategoriData.kt med textview og imagebutton
         fun bind(position: Int) {
             katnavn.text = KategoriData.kategorinavn[position]
             katbilde.setImageResource(KategoriData.kategoribilde[position])

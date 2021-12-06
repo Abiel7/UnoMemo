@@ -28,11 +28,8 @@ class KategoriData {
         var kategorinavn: Array<String> = arrayOf(
             "Flagg",
             "Dyr",
-            "bil",
+            "Bil",
             "Mat"
         )
-
-
     }
-
 }

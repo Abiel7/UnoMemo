@@ -11,29 +11,54 @@
         android:layout_margin="10dp"
         android:id="@+id/list_item">
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FCE4EC"
+            card_view:cardCornerRadius="25dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            card_view:cardElevation="10dp"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="185dp"
+                    android:layout_height="135dp"
+                    android:contentDescription="@string/icon_game"
+                    android:scaleType="centerCrop"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="158dp"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/imageButton"
+            card_view:layout_constraintTop_toTopOf="@+id/materialCardView"
             card_view:layout_constraintVertical_bias="0.0"
             tools:ignore="MissingConstraints" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="183dp"
-            android:layout_height="133dp"
-            android:contentDescription="@string/icon_game"
-            android:scaleType="centerCrop"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="16dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

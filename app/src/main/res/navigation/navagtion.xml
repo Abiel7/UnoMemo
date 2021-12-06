@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/lastoppBildeFragement"
-        android:name="com.example.unomemo.lastoppbilde.LastoppBilde"
+        android:name="com.example.unomemo.LastOppBilde.LastoppBilde"
         android:label="fragment_lastopp_bilde_fragement"
         tools:layout="@layout/fragment_lastopp_bilde_fragement" />
 

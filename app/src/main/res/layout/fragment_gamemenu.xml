@@ -7,15 +7,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fk_ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/kategori_recycler_view"
             android:layout_width="415dp"
             android:layout_height="match_parent"
 
-            android:background="@color/white"
+            android:background="@color/Home4"
             android:overScrollMode="never"
+
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

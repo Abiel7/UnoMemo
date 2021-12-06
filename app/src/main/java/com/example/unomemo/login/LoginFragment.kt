@@ -28,7 +28,7 @@ import com.google.firebase.ktx.app
  * @author svein
  *
  * */
-class LoginFragment : Fragment() {
+class   LoginFragment : Fragment() {
 
     private lateinit var auth:FirebaseAuth
 
@@ -53,11 +53,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        auth = Source(
-            this.requireContext(),
-            Firebase.app.name,
-            FirebaseOptions.fromResource(this.requireContext())!!
-        ).firebaseAuth()
+
 
         storage = Source(
                 this.requireContext(),
@@ -65,12 +61,9 @@ class LoginFragment : Fragment() {
         FirebaseOptions.fromResource(this.requireContext())!!
         ).storage()
 
-        val source = Source(
-            this.requireContext(),
-            Firebase.app.name,
-            FirebaseOptions.fromResource(this.requireContext())!!
-        )
-        auth = source.firebaseAuth()
+
+        auth = FirebaseAuth.getInstance()
+        auth.signOut()
 
         storage = FirebaseFirestore.getInstance(auth.app)
 

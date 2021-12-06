@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -56,13 +57,11 @@ class AccountFragment : Fragment() {
         val redigerbruker = accountBinding.container.getViewById(R.id.tv_rediger_bruker)
         val brukernavn = accountBinding.cardViewContainer.getViewById(R.id.tv_brukernavn)
         val brukerAvatar = accountBinding.circleCenter.getViewById(R.id.brukerAvatar)
-        val user = auth.currentUser
         emailTextView = accountBinding.cardViewContainer.getViewById(R.id.tv_email) as TextView
         brukernavnTextView = brukernavn.findViewById(R.id.tv_brukernavn)
         brukerAvatarIM = brukerAvatar.findViewById(R.id.brukerAvatar)
         val filename = "bilde1"
         val storage = Firebase.storage.reference.child("avatarbilder/$filename")
-
         val localfile = File.createTempFile("tempimage", "jpg")
 
         //spinner som viser loadingscreen
@@ -70,12 +69,14 @@ class AccountFragment : Fragment() {
         progressDialog.setMessage("Fetching image...")
         progressDialog.setCancelable(false)
         progressDialog.show()
-
-        //henter bilde-fila fra storage
+        //henter fila som ligger i Cloud Storage
+        //Kilde for koden: https://www.youtube.com/watch?v=A2-v2VFwLY0&ab_channel=Foxandroid
         storage.getFile(localfile).addOnSuccessListener {
             if(progressDialog.isShowing)
                 progressDialog.dismiss()
+            //gjør om filen til bitmaps
             val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            //setter bits til bilde
             accountBinding.brukerAvatar.setImageBitmap(bitmap)
         }.addOnFailureListener {
             if(progressDialog.isShowing)
@@ -101,8 +102,11 @@ class AccountFragment : Fragment() {
             .addOnSuccessListener { result ->
                 var bruker = auth.currentUser
                 if (bruker != null) {
+                    //looper igjennom dokumentene
                     for (document in result) {
+                        //sammenlikner Firebase Auth uuid, mot iden som er lagret i Cloud Firestore
                         if (bruker.email.toString() == document.data["id"].toString()) {
+                            //Når den finner riktig id skal den appende all informasjon om brukeren
                             builderBrukerNavn.append(brukernavnTextView.text).append(" ").append(document.data["navn"].toString())
                             val email = bruker.email.toString()
                             builderEmail.append(emailTextView.text).append(" ").append(email)
